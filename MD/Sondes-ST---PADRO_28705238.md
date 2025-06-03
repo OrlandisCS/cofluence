@@ -1,0 +1,147 @@
+Suport Tècnic : Sondes ST - PADRO  
+
+1.  [Suport Tècnic](index.html)
+2.  [Suport Tècnic](13893782.html)
+3.  [03 - Monitorització - Revisions globals](26313327.html)
+4.  [03 - Monitorització - OLD](128647245.html)
+5.  [Sondes S.T.](Sondes-S.T._30869120.html)
+6.  [Sondes ST - Old](Sondes-ST---Old_41522507.html)
+
+Suport Tècnic : Sondes ST - PADRO
+=================================
+
+Created by Unknown User (otecobernal), last modified on 02 January 2020
+
+**Sondes Funcionals**
+
+MTI\_TIMER\_MC\_PADRO\_TITULAR\_CERCA
+
+  
+
+**Query:**
+
+select count(\*) FROM MCPCI.AOC\_MCPADRO\_CERCA WHERE ESTAT = 0;
+
+**Descripció:** 
+
+Aquesta sonda és de la PCI2. A efectes pràctics és com un RDBMS (és un timer). Si el nombre peticions amb estat a 0 no disminueix amb el temps, és que el timer no funciona.
+
+  
+
+**Actuació:** 
+
+No està funcionant el timer [MC\_PADRO\_TITULAR\_CERCA](http://10.120.1.20:8001/wliconsole/timergen?c=316&egname=MC_PADRO_TITULAR_CERCA "MC_PADRO_TITULAR_CERCA"). Encara que posi que està _Running_ el timer no s’està executant. Cal entrar dins i fer Submit. Això fa que es torni a arrencar.
+
+Al fer la consulta
+
+select count(\*) from aoc\_mcpadro\_cerca where estat=0
+
+si el nombre d’estat a 0 no disminueix amb el temps, és que no funciona.
+
+**logs:** 
+
+*   **Servidor:**
+*   **Ruta:**
+*   **Nom:**  
+
+MTI\_TIMER\_MC\_PADRO\_TITULAR\_CERCA\_PENJADES
+
+  
+
+**Query:**
+
+select count(\*)
+  FROM MCPCI.AOC\_MCPADRO\_CERCA
+ WHERE ESTAT = '-1'
+ ORDER BY ID\_PETICIO, DOCUMENTACIO, ORDRE;
+
+**Descripció:** 
+
+Aquesta sonda és de la PCI2. A efectes pràctics és com un RDBMS (és un timer). Si el nombre peticions amb estat a -1 no disminueix amb el temps és, que el timer no funciona.
+
+  
+
+**Actuació:** 
+
+Quan es comença a tractar una petició es posa a estat -1. Si es queda en aquest estat, és que s’ha quedat la consulta enganxada.
+
+Els llindars que s’han posat a la sonda són de 26 el warning i de 51 l’error, ja que el timer agafa grups de 25 en 25.
+
+S’han de revisar els registres que estan en estat=-1 de la taula aoc\_mcpadro\_cerca i si  no s’estan tractant actualment, és que es van quedar enganxats per alguna caiguda de la PCI. S’hauran de posar a estat=0 per tal que el timer els torni a agafar.
+
+  
+
+**logs:** 
+
+*   **Servidor:**
+*   **Ruta:**
+*   **Nom:**  
+
+**Sondes ÀUREA**
+
+Ajuntaments més de 12 hores caiguts
+
+select AJUNTAMENTS\_CAIGUTS.descripcio "ENS",
+       (case
+         --when AJUNTAMENTS\_CAIGUTS.ultim\_OK is null then CAST(sysdate - to\_date('01/11/2016 00:00:01', 'dd/mm/yyyy HH24:MI:SS') AS INT)
+         when AJUNTAMENTS\_CAIGUTS.ultim\_OK <= sysdate -1 then CAST((sysdate - AJUNTAMENTS\_CAIGUTS.ultim\_OK) AS INT) || ' dies' -- Número de dies caiguts
+         when AJUNTAMENTS\_CAIGUTS.ultim\_OK > sysdate -1 then CAST(24\*(sysdate - AJUNTAMENTS\_CAIGUTS.ultim\_OK) AS INT)|| ' hores' -- Número de hores caiguts
+       end) as "TEMPS CAIGUT"
+        from
+(
+select KOS.descripcio, KOS.ultim\_KO, OKS.ultim\_OK
+  from
+  -- Seleccionem els KOs
+  (select indxa.ultim\_KO, indxa.descripcio, logs.resultat
+          from monitors.estadistiques logs,
+               (select max(logs.data) as ultim\_KO,
+                       tt.descripcio,
+                       logs.id\_transaccio
+                  from monitors.estadistiques logs, monitors.transaccions tt
+                 where logs.id\_transaccio = tt.id\_transaccio
+                   and tt.id\_servei = 104
+                   --and logs.id\_transaccio not in (2030, 2035)
+                   and tt.Id\_Transaccio not in (2568, 2566, 2567, 2569, 2565)-- No afegim diputacions antigues, ni ens donats de baixa
+                 group by logs.id\_transaccio, tt.descripcio) indxa
+         where indxa.ultim\_KO = logs.data
+           and indxa.id\_transaccio = logs.id\_transaccio
+           and logs.resultat = 'KO') KOS,
+    -- Seleccionem els OKs
+    (select max(logs.data) as ultim\_OK, tt.descripcio, logs.id\_transaccio
+          from monitors.estadistiques logs, monitors.transaccions tt
+         where tt.id\_servei = 104
+           and logs.id\_transaccio = tt.id\_transaccio
+           and logs.resultat = 'OK'
+           and logs.id\_transaccio not in (2030, 2035)
+         group by logs.id\_transaccio, tt.descripcio) OKS
+  -- juntem OKs amb KOs
+ where OKS.descripcio(+) = KOS.descripcio
+ -- més de 12 hores caiguts
+ and 24 \* (sysdate - OKS.ultim\_OK) >= 12
+ -- ordenem per temps que porten caiguts
+ order by OKS.ultim\_OK asc
+)AJUNTAMENTS\_CAIGUTS
+
+Informació rellevant del servei
+
+PADRÓ:
+
+![](plugins/servlet/confluence/placeholder/unknown-attachment)
+
+  
+
+PADRÓ HISTÒRIC:
+
+![](plugins/servlet/confluence/placeholder/unknown-attachment)
+
+[https://www.aoc.cat/wp-content/uploads/2014/11/DI-ViaOberta-PADROHISTORIC.pdf](https://www.aoc.cat/wp-content/uploads/2014/11/DI-ViaOberta-PADROHISTORIC.pdf)
+
+[https://www.aoc.cat/wp-content/uploads/2015/02/Viaoberta-Manual\_usuari.pdf](https://www.aoc.cat/wp-content/uploads/2015/02/Viaoberta-Manual_usuari.pdf)
+
+Pendent
+
+  
+
+Document generated by Confluence on 02 June 2025 11:11
+
+[Atlassian](http://www.atlassian.com/)

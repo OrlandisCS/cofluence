@@ -1,0 +1,301 @@
+Suport Tècnic : PCI3 - WL12 - Reinici  
+
+1.  [Suport Tècnic](index.html)
+2.  [Suport Tècnic](13893782.html)
+3.  [04 - Tècnica de sistemes + 24x7 + Padró](26313202.html)
+4.  [Plataformes](Plataformes_41520520.html)
+5.  [PCI3 - WL12](PCI3---WL12_41520942.html)
+
+Suport Tècnic : PCI3 - WL12 - Reinici
+=====================================
+
+Created by Unknown User (otecobernal), last modified by Unknown User (otecamoya) on 27 May 2024
+
+**JIRA on registrar el reinici**
+
+Per deixar registre d'aquest reinici, utilitzarem les següents plantilles per crear el tiquet JIRA:
+
+PRE-PRODUCCIÓ
+
+APP
+
+[http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c4](http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c4)
+
+IOP
+
+[http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c3](http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c3)
+
+NT
+
+[http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c5](http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c5)
+
+WebLogic 12 general
+
+[http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c6](http://10.120.1.242:8081/veureTicket/6349540440beb9d3f41b51c6)
+
+PRODUCCIÓ
+
+APP
+
+[http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc798e](http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc798e)
+
+IOP
+
+[http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc798d](http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc798d)
+
+NT
+
+[http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc798f](http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc798f)
+
+WebLogic 12 general
+
+[http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc7990](http://10.120.1.242:8081/veureTicket/62432b9c637e7093e7fc7990)
+
+Mode WEB (des del admin):
+
+Haurem d'accedir a la web d'administració del weblogic:
+
+*   PRE: [http://10.120.2.125:7001/console/](http://10.120.2.125:7001/console/)
+*   PRO: [http://10.120.1.163:7001/console](http://10.120.1.163:7001/console/login/LoginForm.jsp)/
+
+  
+
+Trobarem l'usuari i contrassenya al Keepass. Un cop dins haurem d'accedir a **Environment>Servers**:
+
+![](attachments/41520945/41520951.png)
+
+  
+
+Un cop dins haurem de seleccionar la pestanya **Control**:
+
+![](attachments/41520945/41520952.png)
+
+  
+
+Seleccionem el node que es vulgui reiniciar i clicarem sobré el botó **Shutdown(Cerrado)**, seleccionant l'opció **When work completes**
+
+![](attachments/41520945/41520953.png)
+
+Seleccionar el botó de refresh, perquè vagi actualitzant l'estat del node:
+
+![](attachments/41520945/41520954.png)
+
+  
+
+Esperem que l'estat sigui SHUTDOWN, li donem altre cop al botó de refresh perquè deixi de refrescar i puguem fer més accions (No passa res si en "Estado de última acción" posa FAILED):
+
+![](attachments/41520945/41520955.png)
+
+  
+
+Ara toca aixecar el node, per això tornem a seleccionar el node, i aquest cop li donem al botó de "Inciar":
+
+![](attachments/41520945/41520956.png)
+
+  
+
+Tornem activar el refresh per veure quan inicia el node  
+![](attachments/41520945/41520957.png)
+
+  
+
+Un cop estigui en **Running** / **TASK COMPLETED** ja estar el node disponible.
+
+  
+
+**\*\* IMPORTANT \*\***
+
+**Es pot donar el cas que tinguem gairebé molts nodes en warning i faci falta un reinici total que es farà en 3 fases.**
+
+**![](attachments/41520945/100010529.png)**
+
+**FASES REINICI TOTAL WL12**  
+FASE 1 ==> Appnodo1; IOPNodo2; NTNodo3
+
+![](attachments/41520945/100010530.png)
+
+FASE 2 ==> Appnodo2; iopnodo3; ntnodo1
+
+![](attachments/41520945/100010531.png)
+
+FASE 3==> Appnodo3; iopnodo1; ntnodo2
+
+![](attachments/41520945/100010532.png)
+
+**En cada fase es poden apagar i encendre els nodes al mateix temps, amb el que estalviarem temps en el reinici.**
+
+Reinici per consola
+
+Aquests no reinicien l'admin, per tal de reiniciar els 3 nodes de cada plataforma (APP,IOP,OSB), hem de repetir aquest step and step en les 3 màquines SOA, si no només reiniciarem els nodes de la màquina on llencem l'script
+
+Tenim també la possibilitat de reiniciar tots els nodes per scripting, per això tenim que accedir a les 3 màquines del SOA i llançar el següent script:
+
+![](attachments/41520945/41520958.png)
+
+**Reinici**
+
+@PCIDomain
+cdadmin
+./stop\_servers.sh
+./start\_servers.sh
+
+  
+
+Reinici ADMIN
+
+Per reiniciar l'admin el farem des de la màquina SOA1
+
+**Reinici**
+
+@PCIDomain
+cdadmin
+#Aqui trobem els scripts d'administració
+./stop\_adm.sh
+./start\_adm.sh
+
+Exemple d'un stop:
+
+![](attachments/41520945/41520959.png)
+
+Exemple d'un start:
+
+![](https://intranet.aoc.cat/download/attachments/26313589/image2018-8-13_12-46-27.png?version=1&modificationDate=1550140034000&api=v2)
+
+  
+
+És possible que a vegades no sigui possible apagar l'admin o algun server, per això buscarem el procés i farem un kill i llançarem el script de clean, exemple pràctic: 
+
+![](attachments/41520945/41520960.png)
+
+  
+
+Pot ser que alguna vegada tinguem problemes a iniciar l'Admin per culpa dels OSB, si revisem els logs segur que podrem veure que es el OSB el que no deixa aixecar l'ADMIN.
+
+SOLUCIÓ:
+
+1.  Fer kills dels processos de l'OSB en els 3 nodes
+2.  Fer un status en els 3 nodes per assegurar-nos que els OSB estan en SHUTDOWN
+3.  Iniciar l'admin des del node1 amb el seu script
+4.  Aixecar els nodes d'OSB
+
+Possibles problemes amb Weblogics12
+-----------------------------------
+
+Problema que no aixequen nodes/admin...
+
+*   Buscar les aplicacions actives de java
+    
+    `ps` `aux |` `grep` `-i java`
+    
+*   Matar tots els processos
+    
+    `kill` `-9 [PID proccés]`
+    
+    Exemple:  
+      
+      
+    ![](attachments/41520945/41520961.png)
+    
+*   Executar el script status\_all.sh per veure que està top down   
+      
+    ![](attachments/41520945/41520962.png)
+*   Ja podem executar el start\_all.sh, això ho farem de forma ordenada en tots els nodes, quan acabi un anem al altre
+
+Too many open files
+
+Si veiem que als logs es printa en forma de bucle el següent error:
+
+28 May 2022 11:32:41,067 ERROR TrustedXClient :
+28 May 2022 11:32:41,067 ERROR CATCERTServeisComuns: java.io.FileNotFoundException: /apps/aoc20/APP/NT30/tmp/1cb4757f-4daf-4f5c-af49-ff44a9ee1c56 (Too many open files)
+        at java.io.FileInputStream.open0(Native Method)
+        at java.io.FileInputStream.open(FileInputStream.java:195)
+
+A més veiem què sobretot estan afectats els clústers de NT i tenim problemes en l'operació CREAR\_SIGNATURA de la MSC, fem un reboot del i start\_all en tots els nodes afectats. Les passes són:
+
+sudo reboot
+
+@PCIDomain
+
+cdadmin
+
+./start\_all.sh
+
+Node estat FAILED
+
+Si veiem un node en l'estat FAILED, deixem una estona a veure si es recupera sol automàticament. Si no es recupera sol i al intentar aixecar o apagar el node (ambdós casos) l'admin de WL12 ens indica que és un estat incompatible amb l'operació, tampoc funciona el reinici per consola i no veiem el procés del node per realitzar el kill.
+
+Primer hem de revisar l'estat del node manager de la màquina:
+
+@PCIDomain
+
+cdadmin
+
+./status\_nm.sh
+
+Si veiem que està KO, l'aixequem:
+
+./start\_nm.sh
+
+Si que el node manager està UP o si a l'aixecar el node manager continuem amb l'estat FAILED i no podem fer reinici ni per admin ni per consola. Haurem de fer un reboot de la màquina amb el node afectat.
+
+sudo reboot
+
+Un cop fet el reboot els nodes de la màquina haurien d'aixecar-se sols.
+
+Node estat FAILED\_NOT\_RESTARTABLE
+
+Si veiem un node en l'estat FAILED\_NOT\_RESTARTABLE, si intentem apagar el node (ambdós casos) l'admin de WL12 ens indica que és un estat incompatible amb l'operació.
+
+![](attachments/41520945/77824078.png)
+
+No podrem fer el reinici per admin, de manera que accedirem per consola.
+
+Primer hem de revisar l'estat del node manager de la màquina:
+
+@PCIDomain
+
+cdadmin
+
+./status\_all.sh
+
+![](attachments/41520945/77824079.png)
+
+Si veiem que està FAILED\_NOT\_RESTARTABLE, executarem l'escript de neteja per aquest estat
+
+./clean\_failed\_not\_restardable\_servers.sh
+
+un cop executat l'escript, tornem a comprobar l'estat del node:
+
+./status\_all.sh
+
+![](attachments/41520945/77824082.png)
+
+Un cop veiem el node en estat UNKNOWN, podem procedir al reinici del node (shutdown i start). Podem fer-ho tant a consola com a admin.
+
+Attachments:
+------------
+
+![](images/icons/bullet_blue.gif) [image2020-6-12\_11-18-21.png](attachments/41520945/41520951.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2020-6-12\_11-19-46.png](attachments/41520945/41520952.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2020-6-12\_11-21-40.png](attachments/41520945/41520953.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2018-3-29\_11-19-53.png](attachments/41520945/41520954.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2018-3-29\_11-21-22.png](attachments/41520945/41520955.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2018-3-29\_11-23-54.png](attachments/41520945/41520956.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2018-3-29\_11-25-35.png](attachments/41520945/41520957.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-2-14\_11-37-9.png](attachments/41520945/41520958.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-3-26\_9-27-24.png](attachments/41520945/41520959.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-2-4\_13-20-51.png](attachments/41520945/41520960.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2018-8-29\_15-17-46.png](attachments/41520945/41520961.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2018-8-29\_15-34-32.png](attachments/41520945/41520962.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2022-8-1\_10-47-28.png](attachments/41520945/77824078.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2022-8-1\_10-49-47.png](attachments/41520945/77824079.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2022-8-1\_11-0-54.png](attachments/41520945/77824080.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2022-8-1\_11-5-49.png](attachments/41520945/77824082.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2024-5-24\_14-38-40.png](attachments/41520945/100010529.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2024-5-24\_14-43-53.png](attachments/41520945/100010530.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2024-5-24\_14-46-34.png](attachments/41520945/100010531.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2024-5-24\_14-49-24.png](attachments/41520945/100010532.png) (image/png)  
+
+Document generated by Confluence on 02 June 2025 11:17
+
+[Atlassian](http://www.atlassian.com/)
