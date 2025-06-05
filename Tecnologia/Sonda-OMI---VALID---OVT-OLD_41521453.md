@@ -1,0 +1,105 @@
+Suport Tècnic : Sonda OMI - VALID - OVT OLD  
+
+1.  [Suport Tècnic](index.html)
+2.  [Suport Tècnic](13893782.html)
+3.  [99 - DELETE](99---DELETE_64979390.html)
+
+Suport Tècnic : Sonda OMI - VALID - OVT OLD
+===========================================
+
+Created by Unknown User (otecobernal), last modified by OTEC ST JAlejandro Cardete Postigo on 12 April 2024
+
+SERVEI 24X7
+
+Circuit que realitza la sonda
+
+Aquesta sonda realitza les següents accions:
+
+1.  Accedir a la URL:
+    
+    [https://ovt.gencat.cat/carpetaciutadana360#/](https://ovt.gencat.cat/carpetaciutadana360#/ "Seguir enllaç")
+    
+2.  Prémer el botó: Certificat digital (si demana usar idCAT Mòbil clicar sobre “no”)  
+    ![](attachments/41521453/41521465.png)
+3.  Seleccionar el certificat de proves
+    
+    ![](attachments/41521453/41521466.png)
+4.  Seleccionar **Person linked to a business**
+5.  Buscar el text:**Persona de la Peça de Prova** i prémer l’opció **Log Out  
+    ![](attachments/41521453/41521468.png)  
+    **
+    
+
+La sonda s'estructura en una transacció:
+
+1.  **01\_ENTRADA\_PORTAL-1:** Passes 1, 2 i 3
+2.  **02\_VALIDACIÓ -1: Passes 4 i 5**
+
+Procediment a seguir
+
+Aquesta sonda fa login a la web _ovt.gencat.cat_ a través de VALid.
+
+Sempre utilitzarà el VALID-DR, comprovarem per quina IP respon el VALID-DR a través de la següent FAQ:
+
+[VÀLid - Revisions i Restabliment](41523197.html)
+
+  
+
+Una vegada sabem a través de quina infraestructura s'està oferint el servei de DR, revisarem l'estat d'aquella infraestructura (Kyndryl o Nexica):
+
+[Revisió VALid](36340625.html)
+
+  
+
+A tenir en compte:
+------------------
+
+Si només falla aquesta sonda, i **la resta de sondes de VALID** ([Sonda OMI - VALID](Sonda-OMI---VALID_30868596.html) i [Sonda OMI - VALID DR OLD](Sonda-OMI---VALID-DR-OLD_41523112.html)) **estan verdes**, és un indici que el que està fallant és la web de la OVT i no la nostra infraestructura de Valid.
+
+Si aquest és el cas, comprovarem:
+
+1 - Falla la web de la OVT o el login amb VALID? Si el que falla és la web de la OVT i no veiem cap problema amb Valid DR, continuem amb el pas 2.
+
+2 - Comprovem que les sondes de XCAT a OP5 no estiguin en alerta. Són les sondes:
+
+  
+
+APH00102\_aoc\_Xcat\_active:
+
+![](attachments/41521453/41523414.png)
+
+APH00435\_aoc\_Xcatstandby:
+
+![](attachments/41521453/41523413.png)
+
+  
+
+2.1 - En cas que aquestes **sondes OP5 estiguin fallant →** Cal escalar a NTT, trucant-los. Hi ha un problema de infraestructura. Escalar-ho i demanar que revisin aquestes sondes OP5. Per altra banda indicar a CTTI que escalin a Sistemes seguint la seva matriu d'escalats.
+
+2.2 - En cas que aquestes **sondes OP5 no estiguin fallant** (a més VALID-DR està bé, falla la web _ovt.gencat.cat_ i no hi ha més sondes de VALid en alerta) → Tot apunta a que és un problema amb la web de Gencat, Haurem de demanar a CTTI que ho escalin a OVT, nosaltres no podem actuar sobre aquesta web.
+
+Attachments:
+------------
+
+![](images/icons/bullet_blue.gif) [image2019-12-9\_10-56-10.png](attachments/41521453/41521454.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-12-9\_10-33-0.png](attachments/41521453/41521455.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-12-9\_10-28-3.png](attachments/41521453/41521456.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-12-9\_10-27-3.png](attachments/41521453/41521457.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-10-16\_11-47-31.png](attachments/41521453/41521458.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-12-3\_12-42-59.png](attachments/41521453/41521459.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-10-16\_12-11-27.png](attachments/41521453/41521460.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-10-16\_12-16-21.png](attachments/41521453/41521461.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-12-3\_12-50-24.png](attachments/41521453/41521462.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-12-3\_12-52-24.png](attachments/41521453/41521463.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2019-12-3\_13-26-28.png](attachments/41521453/41521464.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2021-2-16\_10-32-0.png](attachments/41521453/41521465.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2021-2-16\_10-32-34.png](attachments/41521453/41521466.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2021-2-16\_10-33-12.png](attachments/41521453/41521467.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2021-2-16\_10-35-0.png](attachments/41521453/41521468.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2021-5-31\_14-22-50.png](attachments/41521453/41523413.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2021-5-31\_14-22-58.png](attachments/41521453/41523414.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2021-7-15\_9-12-45.png](attachments/41521453/41523828.png) (image/png)  
+
+Document generated by Confluence on 02 June 2025 11:19
+
+[Atlassian](http://www.atlassian.com/)

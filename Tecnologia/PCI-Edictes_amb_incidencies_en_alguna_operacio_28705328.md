@@ -1,0 +1,183 @@
+Suport Tècnic : PCI-Edictes\_amb\_incidencies\_en\_alguna\_operacio  
+
+1.  [Suport Tècnic](index.html)
+2.  [Suport Tècnic](13893782.html)
+3.  [03 - Monitorització - Revisions globals](26313327.html)
+4.  [03 - Monitorització - OLD](128647245.html)
+5.  [Sondes S.T.](Sondes-S.T._30869120.html)
+6.  [Sondes ST - ETAULER](Sondes-ST---ETAULER_28705319.html)
+
+Suport Tècnic : PCI-Edictes\_amb\_incidencies\_en\_alguna\_operacio
+===================================================================
+
+Created by Unknown User (otecobernal), last modified on 15 October 2019
+
+**Query:**
+
+SELECT count(\*) FROM ETAULER3PCI.ET\_EDICTE WHERE REINTENTS >= 5 AND ESTAT != 2 AND REINTENTS < 20;
+
+**Descripció:** 
+
+Aquesta sonda consulta els edictes de la PCI que presenten algun error:
+
+*   L'edicte no està retirat (estat diferent de 2)
+*   L'edicte té 5 o més reintents, que significat que s'han realitzat tots els intents permesos.
+*   L'edicte té menys de 20 reintents per no agafar edictes de la blacklist (entre altres casuístiques)
+
+  
+
+**Actuació:** 
+
+VALIDAT
+
+certificat caducat
+
+Les entitats amb el certificat caducat al trustedX no podran despublicar anuncis. No obstant si que poden publicar anuncis si no es troben a la blacklist.
+
+Passes a seguir:
+----------------
+
+1.  **Buscar l'edicte:**
+    
+    Haurem de buscar l'edicte en qüestió:
+    
+    Edictes enviats per l'EACAT:
+    
+    **Query**
+    
+    select PE.\*,
+           --EE.\*,
+           (case
+             when PE.estat = '0' then
+              'Pendent de publicar'
+             when PE.estat = '1' then
+              'Publicat'
+             when PE.estat = '2' then
+              'Retirat'
+             when PE.estat = '-1' then
+              'En procés a BEA'
+           end) as estat\_pci,
+           (case
+             when EE.estat = '0' then
+              'Esborrany'
+             when EE.estat = '1' then
+              'Per vistiplau'
+             when EE.estat = '2' then
+              'Programat'
+             when EE.estat = '3' then
+              'Publicat'
+             when EE.estat = '4' then
+              'Retirat'
+             when EE.estat = '5' then
+              'Esborrat (de moment no implementat)'
+           end) as estat\_etauler
+      from ETAULER3PL.ET\_EDICTE EE
+      left join ETAULER3PCI.ET\_EDICTE PE
+        on to\_char(EE.Id) = PE.ID\_EDICTE
+     where pe.codi\_ens = '1703910007';
+    
+      
+    
+    Edictes enviats per WS:
+    
+    **Query**
+    
+    select PE.\*,
+           (case
+             when PE.estat = '0' then
+              'Pendent de publicar'
+             when PE.estat = '1' then
+              'Publicat'
+             when PE.estat = '2' then
+              'Retirat'
+             when PE.estat = '-1' then
+              'En procés a BEA'
+           end) as estat\_pci
+      from ETAULER3PCI.ET\_EDICTE PE
+     where pe.codi\_ens = '1703910007';
+    
+    Sincronització d'edictes
+    
+    L'estat que mana és el de la PCI. Amb aquest document s'explica com actuar en cas que l'estat de la PCI no sigui el correcte.
+    
+    Si l'estat de la PCI és correcte i el que falla és l'estat del PORTLET, és un problema de sincronització.
+    
+    Possibles causes:
+    
+    1.  Menys de 5 reintents: Si hi ha menys de 5 reintents haurem d'esperar o bé revisar l'RDBMS associat.
+    2.  **Estat = -1 permanent**: Si l'estat a la PCI és -1 i no canvia, l'haurem de posar a l'estat anterior de l'edicte perquè es torni a processar.  
+        Si la data de retirada ja ha passat, llavors l'haurem de posar a estat = 1  
+        Si la data de retirada encara no ha arribat, llavors l'haurem de posar a estat = 0
+
+  
+
+1.  **Mirar si té el certificat al trustedX caducat:**
+    
+    Si el certificat que tenen carregat al trustedX està caducat, els edictes finalitzaran amb errors en intentar retirar-se (No es podran signar les diligències generades). 
+    
+    **Query**
+    
+    SELECT \* FROM SSC\_AOC.ROL WHERE ROL = 'ETAULER' AND ENS = 'O=1703910007'
+    
+2.  **Mirar si està a la blacklist:**
+    
+    Si el certificat està caducat, l'ens hi hauria d'aparèixer a la blacklist. 
+    
+    select \* from ETAULER3PCI.et\_blacklist where codi\_ens = '1703910007';
+    
+    Missatge tipus
+    
+    Si el certificat està caducat i l'ens està a la blacklist, podrem enviar el següent missatge tipus per avisar-los:
+    
+    El certificat que teníeu carregat a l'e-Tauler està caducat. Hauríeu de sol·licitar un nou certificat per tornar a activar el servei.
+    
+    Al següent link trobareu les instruccions de com cedir un certificat al Consorci AOC.
+    
+    [https://suport-tcat.aoc.cat/hc/ca/articles/4413912715025-Com-puc-sol-licitar-un-Segell-Electr%C3%B2nic-de-l-AOC-](https://suport-tcat.aoc.cat/hc/ca/articles/4413912715025-Com-puc-sol-licitar-un-Segell-Electr%C3%B2nic-de-l-AOC-)
+    
+3.  **Eliminar el procés si ja s'ha creat:  
+    **En funció de si l'edicte no es publica o no es despublica, haurem de buscar el procés associat. L'operació 0 està associada al procés de publicació i l'operació 1 al de despublicació. 
+    
+    Si volem publicar l'anunci i existeix un procés de publicació, l'haurem d'eliminar.
+    
+    \-- PUBLICAR
+    select \* from ETAULER3PCI.Et\_Proces where operacio = 0 and id=239764;
+    delete from ETAULER3PCI.Et\_Proces where operacio = 0 and id=239764;
+    
+    
+    --DESPUBLICAR
+    select \* from ETAULER3PCI.Et\_Proces where operacio = 0 and id=239764;
+    delete from ETAULER3PCI.Et\_Proces where operacio = 1 and id=239764;
+    
+4.  **Canviar l'estat si escau**
+    
+    En funció de si l'edicte està en un estat que no és el correcte l'haurem de canviar. Si l'edicte no es publica, l'haurem de canviar a estat pendent, si l'edicte no es despublica, l'haurem de canviar a estat publicat.
+    
+5.  **Baixar els reintents:**  
+    Finalment haurem de baixar els reintents a 3 perquè es torni a intentar l'acció de publicar/despublicar.
+    
+    update ETAULER3PCI.ET\_EDICTE PE set reintents = 3 where id=119541;
+    
+6.  **Revisar que es genera la diligència.**  
+    TO DO
+    
+7.  **Revisar els logs:**  
+    ![](attachments/26313382/26315249.png)  
+      
+    cd /apps/aoc/APP/logs  
+    grep 193451 MC-ETAULER\_APPNODO\*.log (Buscar per la columna ID de la ET\_EDICTE de la PCI)  
+    ![](attachments/26313382/26315247.png)  
+    Descarregar el fitxer i mirar l'error que apareix:  
+    ![](attachments/26313382/26315265.png)
+
+  
+
+**logs:** 
+
+*   **Servidor:**
+*   **Ruta:**
+*   **Nom:**  
+
+Document generated by Confluence on 02 June 2025 11:11
+
+[Atlassian](http://www.atlassian.com/)
