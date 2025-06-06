@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.catcert.cat/VisibleSignature/v0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.catcert.cat/VisibleSignature/v0.1" elementFormDefault="qualified">
+	<!-- FIRMA VISIBLE EN PDF -->
+	<xsd:complexType name="VisibleSignatureDataType">
+		<xsd:sequence>
+			<xsd:element name="VisibleSignaturePosition" type="VisibleSignaturePosition"/>
+			<xsd:element name="Reason" type="xsd:boolean" minOccurs="0"/>
+			<!-- Commitment -->
+			<xsd:element name="Location" type="xsd:boolean" minOccurs="0"/>
+			<!-- SignatureProductionPlace -->
+			<xsd:element name="Date" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="InfoText" type="CertificateDataListType" minOccurs="0"/>
+			<xsd:element name="CertificationLevel" type="CertificationLevelType" minOccurs="0"/>
+			<xsd:element name="Image" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="ImageData" type="xsd:base64Binary" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VisibleSignaturePosition">
+		<xsd:choice>
+			<xsd:element name="VisibleSignatureFieldName" type="xsd:string"/>
+			<xsd:element name="RectangleInfo" type="RectangleInfoType"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="RectangleInfoType">
+		<xsd:sequence>
+			<xsd:element name="LowerLeftX" type="xsd:integer"/>
+			<xsd:element name="LowerLeftY" type="xsd:integer"/>
+			<xsd:element name="UpperRightX" type="xsd:integer"/>
+			<xsd:element name="UpperRightY" type="xsd:integer"/>
+			<xsd:element name="PageNumber" type="PageNumberType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="PageNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="([1-9][0-9]*|last)"/>
+			<!-- Número de página o la cadena "last" -->
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CertificateDataListType">
+		<xsd:sequence maxOccurs="unbounded">
+			<xsd:element name="CertificateData" type="CertificateDataType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="CertificateDataType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="DistinguishedName"/>
+			<xsd:enumeration value="CommonName"/>
+			<xsd:enumeration value="GivenName"/>
+			<xsd:enumeration value="Surname"/>
+			<xsd:enumeration value="OrganizationName"/>
+			<xsd:enumeration value="SerialNumber"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CertificationLevelType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

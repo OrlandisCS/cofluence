@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.catcert.cat/MultiSignPolicy/v1.1#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:XAdES="http://uri.etsi.org/01903/v1.2.2#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.catcert.cat/MultiSignPolicy/v1.1#" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://uri.etsi.org/01903/v1.2.2#" schemaLocation="XAdESv1.2.2.xsd"/>
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd"/>
+	<!-- Multiple Signature Policy - Root element to define a signature flow for a determined document. -->
+	<xs:element name="MultiSignPolicy" type="MultiSignPolicyType"/>
+	<!-- MultiSignPolicyType -->
+	<xs:complexType name="MultiSignPolicyType">
+		<xs:sequence>
+			<!-- The MultiSignPolDigestAlg element indicates the digest algorithm used to compute a digest value for the unique binary encoded value of the definitive form of the document multiple signature policy. -->
+			<xs:element name="MultiSignPolDigestAlg" type="ds:DigestMethodType"/>
+			<!-- The optional ds:Transforms element can be used to specify a chain of transformations that has to be applied to the data before being digested. -->
+			<xs:element ref="ds:Transforms" minOccurs="0"/>
+			<!-- The MultiSignPolicyInfo element contains the computer processable information for a document multiple signature policy (General information to be recorded about a document multiple signature policy). -->
+			<xs:element name="MultiSignPolicyInfo" type="MultiSignPolicyInfoType"/>
+			<!-- The MultiSignPolicyDigest element contains the aforementioned digest value. It will be used to allow versioning control of a document multiple signature policy. -->
+			<xs:element name="MultiSignPolicyDigest" type="ds:DigestValueType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- MultiSignPolicyInfo -->
+	<xs:element name="MultiSignPolicyInfo" type="MultiSignPolicyInfoType"/>
+	<!-- MultiSignPolicyInfoType -->
+	<xs:complexType name="MultiSignPolicyInfoType">
+		<xs:sequence>
+			<!-- Multiple Signature Policy Identifier: the "Multiple Signature Policy" will be identifiable by an identifier (MultiSignPolIdentifier element). -->
+			<xs:element name="MultiSignPolIdentifier" type="XAdES:ObjectIdentifierType"/>
+			<!-- Date of issue: when the "Document Multiple Signature Flow" was issued (DateOfIssue element). -->
+			<xs:element name="DateOfIssue" type="xs:dateTime"/>
+			<!-- Multiple Signature Policy Issuer name: an identifier for the body responsible for issuing the Multiple Signature Policy. -->
+			<xs:element name="MultiSignPolIssuerName" type="xs:string"/>
+			<!-- Document container format description. In document format types where signature can be embedded using enveloped transforms, only one DocumentFormatType will be allowed. -->
+			<xs:element name="DocumentFormatType" type="DocumentFormatType"/>
+			<!-- SignatureEventsList element contains the signing events involved in the multiple signature flow for the document type specified in the element DocumentFormatType. A process can consist in the signature (or multiple signatures) of a unique document. -->
+			<xs:element name="SignatureEventsList" type="SignatureEventsListType"/>
+			<!-- Optional Multiple Signature Policy extensions. -->
+			<xs:element name="MultiSignPolicyExtensionsList" type="PolicyExtensionsListType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- DocumentFormatType -->
+	<xs:complexType name="DocumentFormatType">
+		<xs:choice>
+			<!-- Pronom Identifier for the document format. -->
+			<xs:element name="PronomIdentifierList" type="PronomIdentifierListType"/>
+			<!-- MIME type for the document format -->
+			<xs:element name="DocumentMIMEType" type="xs:string"/>
+			<!-- If instead of the document, the digital signature system deals with its hash value, the digest algorithm must be specified as there is no predefined value for it. -->
+			<xs:element name="DocumentHash" type="ds:DigestMethodType"/>
+			<!-- Any document type will be acceptable. In this case, embedded signatures using the document container bound to the Multiple Signature Policy will be disallowed (only detached and enveloping signatures will be supported). -->
+			<xs:element name="AnyFormatType"/>
+		</xs:choice>
+	</xs:complexType>
+	<!-- PronomIdentifierListType -->
+	<xs:complexType name="PronomIdentifierListType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="PronomIdentifier" type="xs:anyURI"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SignatureEventsListType -->
+	<xs:complexType name="SignatureEventsListType">
+		<xs:sequence maxOccurs="unbounded">
+			<!-- SignatureEvent contains all the necessary information required to create the signature references. -->
+			<xs:element name="SignatureEvent" type="SignatureEventType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SignatureEventType -->
+	<xs:complexType name="SignatureEventType">
+		<xs:sequence>
+			<!-- Description of the signature event. -->
+			<xs:element name="EventDescription" type="xs:string" minOccurs="0"/>
+			<!-- Describes if the signature event blocks next event (the event is part of a sequential signature flow) or not (subsequent event/s can be started in parallel). -->
+			<xs:element name="BlockingSignatureEvent" type="xs:boolean"/>
+			<!-- Signature event properties: technical properties and relationship of the signature object. -->
+			<xs:element name="SignatureProperties" type="SignaturePropertiesType"/>
+		</xs:sequence>
+		<xs:attribute name="EventIdentifier" type="xs:ID" use="required"/>
+		<!-- Identifies uniquely the signature event and allows to reference the signature created in the event. -->
+	</xs:complexType>
+	<!-- SignaturePropertiesType -->
+	<xs:complexType name="SignaturePropertiesType">
+		<xs:sequence>
+			<!-- Specifies whether the signer must be forced to read/review document to be signed indicating compliance with WYSIWYS property of a digital signature system or not. -->
+			<xs:element name="UndeniableSignatureCompliance" type="xs:boolean" minOccurs="0"/>
+			<!-- Signature policy identifier to retrieve information of the allowed commitment types and signature properties. -->
+			<xs:element name="SignaturePolicy" type="XAdES:ObjectIdentifierType"/>
+			<!-- List of acceptable commitment identifiers within de signature policy. -->
+			<xs:element name="AcceptableCommitmentsList" type="AcceptableCommitmentsListType" minOccurs="0"/>
+			<!-- Signature algorithm to be used in the data digest and encryption. -->
+			<xs:element name="SignatureAlgorithm" type="XAdES:ObjectIdentifierType"/>
+			<!-- Canonicalization algorithm to be used in XML based signatures. -->
+			<xs:element name="CanonicalizationAlgorithm" type="ds:CanonicalizationMethodType" minOccurs="0"/>
+			<!-- SignatureReferences determines what will be signed and, using transforms, how to deal with the referenced documents contents to be signed and the signature (or document in case of embedded signatures) container. -->
+			<xs:element name="SignatureReferencesList" type="SignatureReferencesListType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- AcceptableCommitmentsListType -->
+	<xs:complexType name="AcceptableCommitmentsListType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="AcceptableCommitment" type="XAdES:ObjectIdentifierType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SignatureReferencesListType -->
+	<xs:complexType name="SignatureReferencesListType">
+		<xs:choice>
+			<!-- StaticSignatureReferences identifies the fixed references to be used in signature creation. -->
+			<xs:element name="StaticSignatureReferences" type="SignatureReferencesType"/>
+			<!-- DynamicSignatureReferences tells the signing system that the signature requester will provide dinamically the references to be used in signature creation. Only references to the document will be allowed (references to previous signature events are not allowed). -->
+			<xs:element name="DynamicSignatureReferences"/>
+		</xs:choice>
+	</xs:complexType>
+	<!-- SignatureReferences -->
+	<xs:element name="SignatureReferences" type="SignatureReferencesType"/>
+	<!-- SignatureReferencesType -->
+	<xs:complexType name="SignatureReferencesType">
+		<xs:sequence>
+			<!-- Signature is an independent element of the signed data. -->
+			<xs:element name="DetachedReference" type="SignatureReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- Signature element contains the signed data using the selected transforms (i.e. Base64Decode if signature is enveloping binary data). -->
+			<xs:element name="EnvelopingReference" type="SignatureReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- Signature is embedded in the signed data (i.e. XML document using enveloped transform, PDF document using detached PKCS#7 and ByteRange object, OOXML and ODF documents using XMLdsig detached, CMS/XMLdsig signatures embedded in an XML document tag using XPath, zip file containing document and signature/s using signatureReferenceType pointer).
+Only one enveloped reference can be created as there will be a single signature created. The Transforms accepted for EnvelopedReference will be the following: XML enveloped transform, Counter Signature transform (http://www.w3.org/TR/XAdES/images/XAdES-image005.gif), and the custom defined transforms for document formats that allow signature embedding mechanism (i.e. PDF, OOXML and ODF). -->
+			<xs:element name="EnvelopedReference" type="SignatureReferenceType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SignatureReferenceType -->
+	<xs:complexType name="SignatureReferenceType">
+		<xs:choice>
+			<!-- Reference points at the document bound to the Multiple Signature Policy. -->
+			<xs:element name="DocReferencePointer" type="DocReferencePointerType"/>
+			<!-- Reference points at the signature object created in a previous event. The event is determined using its identifier. -->
+			<xs:element name="SignEventReferencePointer" type="SignEventReferencePointerType"/>
+		</xs:choice>
+	</xs:complexType>
+	<!-- DocReferencePointerType -->
+	<xs:complexType name="DocReferencePointerType">
+		<xs:sequence>
+			<!-- List of transforms to be applied to the data to be signed or signature container. -->
+			<xs:element ref="ds:Transforms" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SignEventReferencePointerType -->
+	<xs:complexType name="SignEventReferencePointerType">
+		<xs:complexContent>
+			<xs:extension base="DocReferencePointerType">
+				<xs:attribute name="SignEventIdentifier" type="xs:IDREF" use="required"/>
+			</xs:extension>
+			<!-- Determines which of the previous signature events must be pointed at to create the signature reference. -->
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- PolicyExtensionsListType -->
+	<xs:complexType name="PolicyExtensionsListType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="PolicyExtension" type="XAdES:AnyType"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
