@@ -6,7 +6,7 @@ import ora from "ora";
 
 import readline from "readline";
 
-const inputDir = "./files";
+//const inputDir = "./files";
 const turndownService = new TurndownService();
 turndownService.addRule("convertLocalHtmlLinksToMd", {
   filter: (node) =>
@@ -81,42 +81,55 @@ const line = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+const outputDirQuest = () => {
+  return new Promise((resolve, reject) => {
+    line.question(chalk.bold.green("Ingrese departamento: \n > "), (dir) => {
+      resolve(dir);
+    });
+  });
+};
+line.question(
+  chalk.bold.green("Ingrese directorio de archivos : \n > "),
+  async (inputDir) => {
+    const outputDir = await outputDirQuest();
 
-line.question("Ingrese departamento: \n > ", (outputDir) => {
-  try {
-    (async () => {
-      console.log(
-        chalk.bold.blue("🚀 Buscando archivos HTML para convertir...\n")
-      );
-
-      if (!fs.existsSync(inputDir)) {
-        console.error(
-          chalk.red(`❌ La carpeta de entrada no existe: ${inputDir}`)
-        );
-        return;
-      }
-
-      ensureDirExists(outputDir);
-      const hasConvertedFiles = await convertHtmlToMd(inputDir, outputDir);
-
-      if (hasConvertedFiles) {
-        console.log(chalk.bold.green("\n✅ Conversión completada con éxito."));
-      } else {
-        if (
-          fs.existsSync(outputDir) &&
-          fs.readdirSync(outputDir).length === 0
-        ) {
-          fs.rmdirSync(outputDir);
-        }
+    try {
+      (async () => {
         console.log(
-          chalk.yellow("⚠️ No se encontraron archivos HTML para convertir.")
+          chalk.bold.blue("🚀 Buscando archivos HTML para convertir...\n")
         );
-      }
-    })();
-    line.close();
-  } catch (error) {
-    console.log(error);
-    fs.rmSync(outputDir, { recursive: true, force: true });
-    line.close();
+
+        if (!fs.existsSync(inputDir)) {
+          console.error(
+            chalk.red(`❌ La carpeta de entrada no existe: ${inputDir}`)
+          );
+          return;
+        }
+
+        ensureDirExists(outputDir);
+        const hasConvertedFiles = await convertHtmlToMd(inputDir, outputDir);
+
+        if (hasConvertedFiles) {
+          console.log(
+            chalk.bold.green("\n✅ Conversión completada con éxito.")
+          );
+        } else {
+          if (
+            fs.existsSync(outputDir) &&
+            fs.readdirSync(outputDir).length === 0
+          ) {
+            fs.rmdirSync(outputDir);
+          }
+          console.log(
+            chalk.yellow("⚠️ No se encontraron archivos HTML para convertir.")
+          );
+        }
+      })();
+      line.close();
+    } catch (error) {
+      console.log(error);
+      fs.rmSync(outputDir, { recursive: true, force: true });
+      line.close();
+    }
   }
-});
+);
