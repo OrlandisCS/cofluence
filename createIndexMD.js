@@ -42,14 +42,14 @@ async function main() {
     items.map((item, index) => {
       if (item.isDirectory()) {
         const inputPath = path.join(inputDir, item.name);
-        readmeContent += `${index}: [${item.name}](./${inputPath})\n`;
+        const url = encodeURI(inputPath);
+        readmeContent += `${index}: [${item.name}](./${url})\n`;
         readmeContent += "\n";
       }
     });
     await sleep(500);
     const outputPath = path.join("./", "README.md");
     fs.writeFileSync(outputPath, readmeContent, "utf8");
-
     spinner.succeed(chalk.green("📘 README.md generado correctamente"));
   } catch (error) {
     console.log(error);
