@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const MAX_SIZE_BYTES = 10 * 1024 * 1024; // 100 MB
+const MAX_SIZE_BYTES = 10 * 1024 * 1024;
 const EXTENSIONES = [".zip", ".rar", ".gz"];
 
 function eliminarArchivosGrandesYPorExtension(dir) {
