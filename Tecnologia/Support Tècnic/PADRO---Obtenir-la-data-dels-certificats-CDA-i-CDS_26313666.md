@@ -1,0 +1,114 @@
+Suport Tècnic : PADRO - Obtenir la data dels certificats CDA i CDS  
+
+1.  [Suport Tècnic](index.md)
+2.  [Suport Tècnic](13893782.md)
+3.  [04 - Tècnica de sistemes + 24x7 + Padró](26313202.md)
+4.  [Revisió de serveis](36340340.md)
+5.  [PADRO - Revisions i Restabliment](PADRO---Revisions-i-Restabliment_118554712.md)
+6.  [Padró - Instal·lació i manteniment](26313622.md)
+
+Suport Tècnic : PADRO - Obtenir la data dels certificats CDA i CDS
+==================================================================
+
+Created by Unknown User (obernalp), last modified by Unknown User (otecjcolomer) on 30 March 2023
+
+En aquest document s'explicarà com obtenir la data de caducitat dels certificats d'aplicació i de servidor que fan servir els ajuntaments en el seu PMH. També s'explicarà on s'han de configurar aquestes dades als entorns de l'AOC.
+
+Obtenir data caducitat CDA
+
+Haurem de fer un test amb la màquina d'Amposta:
+
+![](https://steps.everis.com/confluence/download/attachments/1136661344/image2019-2-4_8-34-51.png?version=1&modificationDate=1549265690922&api=v2)
+
+Un cop connectats podrem obrir una connexió amb el Putty i executar les següents comandes (exemple per Santa Perpètua):
+
+cd /Monitors/PADROMonitor
+./PADROSantaperpetuaMonitorPRO.sh
+
+Si el Test funciona correctament, veurem el següent:
+
+![](https://steps.everis.com/confluence/download/attachments/1136661344/image2019-2-4_8-38-2.png?version=1&modificationDate=1549265881534&api=v2)
+
+Haurem de copiar el certificat en un fitxer i anomenar-lo mb l'extensió .crt o .cer:
+
+![](https://steps.everis.com/confluence/download/attachments/1136661344/image2019-2-4_8-42-30.png?version=1&modificationDate=1549266150100&api=v2)
+
+Un cop desat al nostre local, podrem obrir el fitxer amb doble click i veure la vigència:
+
+![](https://steps.everis.com/confluence/download/attachments/1136661344/image2019-2-4_8-43-30.png?version=1&modificationDate=1549266209211&api=v2)
+
+Obtenir data caducitat CDS
+
+Haurem de connectar-nos a la màquina aoc-l-back 10.120.1.105 tomcat6 de la plataforma PCIv2.0:
+
+![](attachments/26313666/81856026.png)
+
+Un cop connectats podrem obrir una connexió amb el Putty i executar les següents comandes (exemple per Santa Perpètua):
+
+cd /etc/httpd/conf.d/sites
+cat proxyajuntaments.aoc.cat.conf | grep -i mogoda
+
+Obtindrem l'endpoint de l'aplicació del padró
+
+![](attachments/26313666/26316868.png)
+
+Per obtenir la data haurem d'utilitzar la comanda echo | openssl s\_client -connect <IP>:<puerto> 2>/dev/null | openssl x509 -noout -enddate -subject, on hauré d'introduir la IP o la ruta de red i el port que hem trobat en el pas anterior:
+
+echo | openssl s\_client -connect 213.4.32.87:8080 2>/dev/null | openssl x509 -noout -enddate -subject 
+
+IIS
+
+Si l'aplicació del padró és punt .NET, el pas anterior no ens servirà per obtenir la data, ens haurem de connectar al IIS amb la forma: **curl --insecure -v  [https://aoc-padro.laseu.cat/aoc-padro/ws/WSDispatcher.asmx](https://aoc-padro.laseu.cat/aoc-padro/ws/WSDispatcher.asmx) 2>&1 | awk 'BEGIN { cert=0 } /^\\\* SSL connection/ { cert=1 } /^\\\*/ { if (cert) print }'**  
+**![](attachments/26313666/26316867.png)**
+
+Canviar les dades guardades al AOC
+
+Les dades de caducitat dels certificats del PMH estan guardades a una base de dades de l'AOC. Per canviar-les haurem d'anar a la webAdmin del padró i buscar l'Ajuntament en qüestió:
+
+*   [http://10.120.4.57/pci3-pmh-admin/](http://10.120.4.57/pci3-pmh-admin/)
+
+![](https://steps.everis.com/confluence/download/attachments/1136661344/image2019-2-4_8-54-48.png?version=1&modificationDate=1549266887639&api=v2)
+
+  
+
+En el cas que les dades no coincideixin haurem de canviar-les a la webAdmin.
+
+També podem consultar la mateixa informació per Base de Dades. A continuació s'adjunten exemples de consultes:
+
+\-- AVIS CDS
+SELECT descripcio, data\_cds, data\_cds-trunc(CURRENT\_DATE) Dies\_Caducitat\_CDS,CASE plataforma 
+  WHEN 0 THEN 'JAVA' 
+  WHEN 1 THEN 'NET'
+  ELSE 'OTHER'
+END Plataforma
+FROM regservpadro.aoc\_endpoint 
+order by dies\_caducitat\_cds
+
+-- AVIS CDA
+SELECT descripcio,data\_cda, data\_cda-trunc(CURRENT\_DATE) Dies\_Caducitat\_CDA,
+CASE plataforma 
+  WHEN 0 THEN 'JAVA' 
+  WHEN 1 THEN 'NET'
+  ELSE 'OTHER'
+END Plataforma
+FROM regservpadro.aoc\_endpoint 
+order by dies\_caducitat\_cda 
+
+-- todo
+SELECT descripcio,data\_cda, data\_cda-trunc(CURRENT\_DATE) Dies\_Caducitat\_CDA,data\_cds,data\_cds-trunc(CURRENT\_DATE) Dies\_Caducitat\_CDS,CASE plataforma 
+  WHEN 0 THEN 'JAVA' 
+  WHEN 1 THEN 'NET'
+  ELSE 'OTHER'
+END Plataforma
+FROM regservpadro.aoc\_endpoint 
+
+Attachments:
+------------
+
+![](images/icons/bullet_blue.gif) [image2018-7-19\_9-17-41.png](attachments/26313666/26316867.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2017-11-23\_13-57-20.png](attachments/26313666/26316868.png) (image/png)  
+![](images/icons/bullet_blue.gif) [image2023-3-30\_10-22-9.png](attachments/26313666/81856026.png) (image/png)  
+
+Document generated by Confluence on 02 June 2025 11:14
+
+[Atlassian](http://www.atlassian.com/)
