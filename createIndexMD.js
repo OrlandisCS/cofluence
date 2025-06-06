@@ -41,7 +41,7 @@ async function main() {
 
     items.map((item, index) => {
       if (item.isDirectory()) {
-        const inputPath = path.join(inputDir, item.name);
+        const inputPath = path.join(inputDir, item.name).replace(/\\/g, "/");
         const url = encodeURI(inputPath);
         readmeContent += `${index + 1}: [${item.name}](./${url}/index.md)\n`;
         readmeContent += "\n";
