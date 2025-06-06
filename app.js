@@ -42,6 +42,10 @@ async function convertHtmlToMd(dir, baseOutDir, relativeSubPath = "") {
     const outputPath = path.join(baseOutDir, relPath).replace(/\.html$/, ".md");
 
     if (item.isDirectory()) {
+      const srcDir = inputPath;
+      const destDir = outputPath;
+
+      fs.cpSync(srcDir, destDir, { recursive: true });
       const convertedInSub = await convertHtmlToMd(
         inputPath,
         baseOutDir,

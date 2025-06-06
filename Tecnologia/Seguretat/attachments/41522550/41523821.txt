@@ -1,0 +1,36 @@
+﻿$GroupNAME ="Admins_O365_Groups"
+$GroupID = "5984de68-e11e-4f72-b3e9-e0fe2ae7c245"
+$AllowGroupCreation = "True"
+
+Connect-AzureAD
+
+$settingsObjectID = (Get-AzureADDirectorySetting | Where-object -Property Displayname -Value "Group.Unified" -EQ).id
+if(!$settingsObjectID)
+{
+      $template = Get-AzureADDirectorySettingTemplate | Where-object {$_.displayname -eq "group.unified"}
+    $settingsCopy = $template.CreateDirectorySetting()
+    New-AzureADDirectorySetting -DirectorySetting $settingsCopy
+    $settingsObjectID = (Get-AzureADDirectorySetting | Where-object -Property Displayname -Value "Group.Unified" -EQ).id
+}
+
+$settingsCopy = Get-AzureADDirectorySetting -Id $settingsObjectID
+$settingsCopy["EnableGroupCreation"] = $AllowGroupCreation
+
+if($GroupID)
+{
+    $settingsCopy["GroupCreationAllowedGroupId"] = (Get-AzureADGroup -SearchString $GroupID).objectid
+}
+ else {
+$settingsCopy["GroupCreationAllowedGroupId"] = $GroupID
+}
+if($GroupNAME)
+{
+    $settingsCopy["GroupCreationAllowedGroupId"] = (Get-AzureADGroup -SearchString $GroupNAME).objectid
+}
+ else {
+$settingsCopy["GroupCreationAllowedGroupId"] = $GroupID
+}
+
+Set-AzureADDirectorySetting -Id $settingsObjectID -DirectorySetting $settingsCopy
+
+(Get-AzureADDirectorySetting -Id $settingsObjectID).Values
