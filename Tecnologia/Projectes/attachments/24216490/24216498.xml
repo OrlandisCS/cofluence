@@ -1,0 +1,804 @@
+<SignaturePolicy xmlns="http://uri.etsi.org/2038/v1.1.1#" xmlns:XAdES="http://uri.etsi.org/01903/v1.2.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uri.etsi.org/2038/v1.1.1# signaturePolicy_etsi_tr_102_038.xsd">
+	<SignPolicyDigestAlg Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></SignPolicyDigestAlg>
+	<ds:Transforms>
+		<!-- Canonicalization algorithm ommiting comments -->
+		<ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:Transform>
+	</ds:Transforms>
+	<SignPolicyInfo>
+		<SignPolicyIdentifier>
+			<!-- URN: urn:catcert:normatives:signatura:factura_electronica:facturae3.1:XAdES-EPES -->
+			<!-- http://www.facturae.es/politica_de_firma_formato_facturae/politica_de_firma_formato_facturae_v3_1.pdf -->
+			<!-- OID: 1.3.6.1.4.1.15096.2.3.26.2.1 -->
+			<XAdES:Identifier>urn:catcert:normatives:signatura:factura_electronica:facturae3.1:XAdES-EPES</XAdES:Identifier>
+			<XAdES:Description>Aquest document conté la normativa de signatura electrònica aplicable a l'emissió de factures electròniques segons les especificacions de l'Agència Espanyola d'Administració Tributària.</XAdES:Description>
+			<XAdES:DocumentationReferences>
+				<XAdES:DocumentationReference>http://www.catcert.cat/normatives/PdSE_CATCert_Factura_Electronica_Facturae3.1_XAdES-EPES_v1.1.xml</XAdES:DocumentationReference>
+				<XAdES:DocumentationReference>http://www.facturae.es/es-ES/Documentacion/Politicas/Politicas/Versi%C3%B3n%203_1/Politica_Firma_formato_facturae_v3_1.pdf</XAdES:DocumentationReference>
+			</XAdES:DocumentationReferences>
+		</SignPolicyIdentifier>
+		<DateOfIssue>2009-06-01T00:00:00.0Z</DateOfIssue>
+		<PolicyIssuerName>Agencia Catalana de Certificacio (NIF Q-0801176-I)</PolicyIssuerName>
+		<FieldOfApplication>
+		Aquesta normativa de signatura electrònica resulta aplicable a totes les signatures electròniques realitzades sobre factures electròniques segons les especificacions de l'AEAT.
+</FieldOfApplication>
+		<SignatureValidationPolicy>
+			<SigningPeriod>
+				<NotBefore>2009-01-01T00:00:00.0Z</NotBefore>
+			</SigningPeriod>
+			<CommonRules>
+				<SignerAndVerifierRules>
+					<SignerRules>
+						<!-- XAdES-T -->
+						<!-- urn:oasis:names:tc:dss:1.0:profiles:XAdES:forms:ES-T -->
+						<MandatedSignedQProperties>
+							<!-- KeyInfo -->
+							<!-- XAdES Signing Time -->
+							<QPropertyID>http://uri.etsi.org/01903#SigningTime</QPropertyID>
+							<!-- XAdES Signature Policy Identifier -->
+							<QPropertyID>http://uri.etsi.org/01903#SignaturePolicyIdentifier</QPropertyID>
+						</MandatedSignedQProperties>
+						<MandatedUnsignedQProperties></MandatedUnsignedQProperties>
+						<MandatedCertificateRef>signerOnly</MandatedCertificateRef>
+						<MandatedCertificateInfo>signerOnly</MandatedCertificateInfo>
+					</SignerRules>
+					<VerifierRules>
+						<!-- XAdES-XL -->
+						<!-- urn:oasis:names:tc:dss:1.0:profiles:XAdES:forms:ES-XL -->
+						<MandatedQUnsignedProperties>
+							<!-- XAdES Signature Timestamp -->
+							<QPropertyID>http://uri.etsi.org/01903#SignatureTimeStamp</QPropertyID>
+							<!-- XAdES Complete Certificate Refs -->
+							<QPropertyID>http://uri.etsi.org/01903#CompleteCertificateRefs</QPropertyID>
+							<!-- XAdES Complete Revocation Refs -->
+							<QPropertyID>http://uri.etsi.org/01903#CompleteRevocationRefs</QPropertyID>
+							<!-- XAdES Complete Certificate Values -->
+							<QPropertyID>http://uri.etsi.org/01903#CertificateValues</QPropertyID>
+							<!-- XAdES Complete Revocation Values -->
+							<QPropertyID>http://uri.etsi.org/01903#RevocationValues</QPropertyID>
+						</MandatedQUnsignedProperties>
+					</VerifierRules>
+				</SignerAndVerifierRules>
+				<TimeStampTrustCondition>
+					<TtsCertificateTrustTrees>
+						<CertificateTrustPoint>
+							<TrustPoint>
+								<!-- EC-ACC -->
+								<ds:X509Certificate>MIIFVjCCBD6gAwIBAgIQ7is969Qh3hSoYqwE893EATANBgkqhkiG9w0BAQUFADCB8zELMAkGA1UEBhMCRVMxOzA5BgNVBAoTMkFnZW5jaWEgQ2F0YWxhbmEgZGUgQ2VydGlmaWNhY2lvIChOSUYgUS0wODAxMTc2LUkpMSgwJgYDVQQLEx9TZXJ2ZWlzIFB1YmxpY3MgZGUgQ2VydGlmaWNhY2lvMTUwMwYDVQQLEyxWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAoYykwMzE1MDMGA1UECxMsSmVyYXJxdWlhIEVudGl0YXRzIGRlIENlcnRpZmljYWNpbyBDYXRhbGFuZXMxDzANBgNVBAMTBkVDLUFDQzAeFw0wMzAxMDcyMzAwMDBaFw0zMTAxMDcyMjU5NTlaMIHzMQswCQYDVQQGEwJFUzE7MDkGA1UEChMyQWdlbmNpYSBDYXRhbGFuYSBkZSBDZXJ0aWZpY2FjaW8gKE5JRiBRLTA4MDExNzYtSSkxKDAmBgNVBAsTH1NlcnZlaXMgUHVibGljcyBkZSBDZXJ0aWZpY2FjaW8xNTAzBgNVBAsTLFZlZ2V1IGh0dHBzOi8vd3d3LmNhdGNlcnQubmV0L3ZlcmFycmVsIChjKTAzMTUwMwYDVQQLEyxKZXJhcnF1aWEgRW50aXRhdHMgZGUgQ2VydGlmaWNhY2lvIENhdGFsYW5lczEPMA0GA1UEAxMGRUMtQUNDMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsyLHT+KXQpWIR4NA9h0X84NzJB5R85iKw5K4/0CQBXCHYMkAqbWUZRkiFRfCQ2xmRJoNBD45b6VLeqpjt4pEndljkYRm4CgPukLjbo73FCeTae6RDqNfDrHrZqJyTxIThmV6PttPB/SnCWDaOkKZx7J/sxaVHMf5NLWUhdWZXqBIoH7nF2W4onW4HvPlQn2v7fOKSGRdghST2MDk/7NQcvJ29rNdQlB50JQ+awwAvthrDk4q7D7SzIKiGGUzE3eeml0aE9jD2z3Il3rucO2n5nzbcc8tlGLfbdb1OL4/pYUKGbio2Al1QnDE6u/LDsg0qBIimAy4E5S2S+zw0JDnJwIDAQABo4HjMIHgMB0GA1UdEQQWMBSBEmVjX2FjY0BjYXRjZXJ0Lm5ldDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUoMOLRKo3pUW/l4Ba0fF4opvpXY0wfwYDVR0gBHgwdjB0BgsrBgEEAfV4AQMBCjBlMCwGCCsGAQUFBwIBFiBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbDA1BggrBgEFBQcCAjApGidWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAwDQYJKoZIhvcNAQEFBQADggEBAKBIW4IB9k1IuDlVNZyAelOZ1Vr/sXE7zDkJlF7W2u++AVtd0x7Y/X1PzaBB4DSTv8vihpw3kpBWHNzrKQXlxJ7HNd+KDM3FIUPpqojlNcAZQmNaAl6kSBg6hW/cnbw/nZzBh7h6YQjpdwt/cKt63dmXLGQehb+8dJahw3oS7AwaboMMPOhyRp/7SNVel+axofjk70YllJyJ22k4vuxcDlbHZVHlUIiIv0LVKz3l+bqeLrPK9HOSAgu+TGbrIP65y7WZf+a2E/rKS03Z7lNGBjvGTq2TWoF+bCpLagVFjPIhpDGQh2xlnJ2lYJU6Un/10asIbvPuW/mIPX64b24D5EI=</ds:X509Certificate>
+							</TrustPoint>
+							<AcceptablePolicySet>
+								<AcceptablePolicy>
+									<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.111</XAdES:Identifier>
+									<XAdES:Description>Política de certificats d’infrastructura d’entitat de segell de temps de classe 1 (CIT-1).</XAdES:Description>
+									<XAdES:DocumentationReferences>
+										<XAdES:DocumentationReference>https://www.catcert.cat/verCIT-1</XAdES:DocumentationReference>
+									</XAdES:DocumentationReferences>
+								</AcceptablePolicy>
+							</AcceptablePolicySet>
+						</CertificateTrustPoint>
+					</TtsCertificateTrustTrees>
+					<TtsRevReq>
+						<EndRevReq>
+							<EnuRevReq>eithercheck</EnuRevReq>
+						</EndRevReq>
+						<CACerts>
+							<EnuRevReq>eithercheck</EnuRevReq>
+						</CACerts>
+					</TtsRevReq>
+				</TimeStampTrustCondition>
+				<AlgorithmConstraintSet>
+					<SignerAlgConstraints>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2000/09/xmldsig#rsa-sha1</AlgId>
+							<MinKeyLength>1024</MinKeyLength>
+						</AlgAndLength>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2001/04/xmldsig-more#rsa-sha256</AlgId>
+							<MinKeyLength>2048</MinKeyLength>
+						</AlgAndLength>
+					</SignerAlgConstraints>
+					<EeCertAlgConstraints>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2000/09/xmldsig#rsa-sha1</AlgId>
+							<MinKeyLength>1024</MinKeyLength>
+						</AlgAndLength>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2001/04/xmldsig-more#rsa-sha256</AlgId>
+							<MinKeyLength>2048</MinKeyLength>
+						</AlgAndLength>
+					</EeCertAlgConstraints>
+					<CACertAlgConstraints>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2000/09/xmldsig#rsa-sha1</AlgId>
+							<MinKeyLength>2048</MinKeyLength>
+						</AlgAndLength>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2001/04/xmldsig-more#rsa-sha256</AlgId>
+							<MinKeyLength>2048</MinKeyLength>
+						</AlgAndLength>
+					</CACertAlgConstraints>
+					<TSACertAlgConstraints>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2000/09/xmldsig#rsa-sha1</AlgId>
+							<MinKeyLength>1024</MinKeyLength>
+						</AlgAndLength>
+						<AlgAndLength>
+							<AlgId>http://www.w3.org/2001/04/xmldsig-more#rsa-sha256</AlgId>
+							<MinKeyLength>2048</MinKeyLength>
+						</AlgAndLength>
+					</TSACertAlgConstraints>
+				</AlgorithmConstraintSet>
+			</CommonRules>
+			<CommitmentRules>
+				<CommitmentRule>
+					<SelCommitmentTypes>
+						<SelCommitmentType>
+							<RecognizedCommitmentType>
+								<CommitmentIdentifier>
+									<XAdES:Identifier>urn:catcert:compromisos_signatura:factura_electronica</XAdES:Identifier>
+								</CommitmentIdentifier>
+							</RecognizedCommitmentType>
+						</SelCommitmentType>
+						<SelCommitmentType>
+							<Empty></Empty>
+						</SelCommitmentType>
+					</SelCommitmentTypes>
+					<SigningCertTrustCondition>
+						<SignerTrustTrees>
+							<!-- CATCert -->
+							<CertificateTrustPoint>
+								<TrustPoint>
+									<!-- EC-ACC -->
+									<ds:X509Certificate>MIIFVjCCBD6gAwIBAgIQ7is969Qh3hSoYqwE893EATANBgkqhkiG9w0BAQUFADCB8zELMAkGA1UEBhMCRVMxOzA5BgNVBAoTMkFnZW5jaWEgQ2F0YWxhbmEgZGUgQ2VydGlmaWNhY2lvIChOSUYgUS0wODAxMTc2LUkpMSgwJgYDVQQLEx9TZXJ2ZWlzIFB1YmxpY3MgZGUgQ2VydGlmaWNhY2lvMTUwMwYDVQQLEyxWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAoYykwMzE1MDMGA1UECxMsSmVyYXJxdWlhIEVudGl0YXRzIGRlIENlcnRpZmljYWNpbyBDYXRhbGFuZXMxDzANBgNVBAMTBkVDLUFDQzAeFw0wMzAxMDcyMzAwMDBaFw0zMTAxMDcyMjU5NTlaMIHzMQswCQYDVQQGEwJFUzE7MDkGA1UEChMyQWdlbmNpYSBDYXRhbGFuYSBkZSBDZXJ0aWZpY2FjaW8gKE5JRiBRLTA4MDExNzYtSSkxKDAmBgNVBAsTH1NlcnZlaXMgUHVibGljcyBkZSBDZXJ0aWZpY2FjaW8xNTAzBgNVBAsTLFZlZ2V1IGh0dHBzOi8vd3d3LmNhdGNlcnQubmV0L3ZlcmFycmVsIChjKTAzMTUwMwYDVQQLEyxKZXJhcnF1aWEgRW50aXRhdHMgZGUgQ2VydGlmaWNhY2lvIENhdGFsYW5lczEPMA0GA1UEAxMGRUMtQUNDMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsyLHT+KXQpWIR4NA9h0X84NzJB5R85iKw5K4/0CQBXCHYMkAqbWUZRkiFRfCQ2xmRJoNBD45b6VLeqpjt4pEndljkYRm4CgPukLjbo73FCeTae6RDqNfDrHrZqJyTxIThmV6PttPB/SnCWDaOkKZx7J/sxaVHMf5NLWUhdWZXqBIoH7nF2W4onW4HvPlQn2v7fOKSGRdghST2MDk/7NQcvJ29rNdQlB50JQ+awwAvthrDk4q7D7SzIKiGGUzE3eeml0aE9jD2z3Il3rucO2n5nzbcc8tlGLfbdb1OL4/pYUKGbio2Al1QnDE6u/LDsg0qBIimAy4E5S2S+zw0JDnJwIDAQABo4HjMIHgMB0GA1UdEQQWMBSBEmVjX2FjY0BjYXRjZXJ0Lm5ldDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUoMOLRKo3pUW/l4Ba0fF4opvpXY0wfwYDVR0gBHgwdjB0BgsrBgEEAfV4AQMBCjBlMCwGCCsGAQUFBwIBFiBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbDA1BggrBgEFBQcCAjApGidWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAwDQYJKoZIhvcNAQEFBQADggEBAKBIW4IB9k1IuDlVNZyAelOZ1Vr/sXE7zDkJlF7W2u++AVtd0x7Y/X1PzaBB4DSTv8vihpw3kpBWHNzrKQXlxJ7HNd+KDM3FIUPpqojlNcAZQmNaAl6kSBg6hW/cnbw/nZzBh7h6YQjpdwt/cKt63dmXLGQehb+8dJahw3oS7AwaboMMPOhyRp/7SNVel+axofjk70YllJyJ22k4vuxcDlbHZVHlUIiIv0LVKz3l+bqeLrPK9HOSAgu+TGbrIP65y7WZf+a2E/rKS03Z7lNGBjvGTq2TWoF+bCpLagVFjPIhpDGQh2xlnJ2lYJU6Un/10asIbvPuW/mIPX64b24D5EI=</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<AcceptablePolicy>
+										<!-- CPISR-1 -->
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81</XAdES:Identifier>
+										<XAdES:Description>Política de Certificat Personal d'Identificació i Signatura 
+Reconeguda de Classe 1 (CPISR-1)</XAdES:Description>
+										<XAdES:DocumentationReferences>
+											<XAdES:DocumentationReference>https://www.catcert.cat/verCPISR-1</XAdES:DocumentationReference>
+										</XAdES:DocumentationReferences>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec Estranger (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec Estranger (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec (EC-PARLAMENT) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.2.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.2.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec (EC-AL) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.2.5</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Càrrec (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.3.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Càrrec (EC-PARLAMENT) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.3.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Càrrec (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.3.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Càrrec (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.3.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Càrrec (EC-AL) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.3.5</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Estudiant (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Estudiant (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Estudiant Estranger (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.2.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Estudiant Estranger (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.2.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec i Ús (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.3.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec i Ús (EC-AL) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.3.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec i Ús (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.3.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec i Ús (EC-Parlament) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.3.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec i Ús (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.3.5</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CIPISR-1 -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.15</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CIPISR-2 -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.16</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISA-2 -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.84.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- idCAT -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.86.1</XAdES:Identifier>
+										<XAdES:Description>Política de Certificat reconegut d'identificació i signatura electrònica avançada per a ciutadans (IDCat)</XAdES:Description>
+										<XAdES:DocumentationReferences>
+											<XAdES:DocumentationReference>https://www.catcert.cat/verIDCat</XAdES:DocumentationReference>
+										</XAdES:DocumentationReferences>
+									</AcceptablePolicy>
+									<!-- idCAT CEX -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.86.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEISR-1 -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.121</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEISR-1 (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.121.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEISR-1 (EC-AL) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.121.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEISR-1 (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.121.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEISR-1 (EC-Parlament) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.121.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEISR-1 (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.121.5</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEIXSA-1 (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.161.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEIXSA-1 (EC-AL) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.161.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEIXSA-1 (EC-UR) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.161.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEIXSA-1 (EC-Parlament) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.161.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CEIXSA-1 (EC-URV) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.161.5</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- DNIe -->
+							<CertificateTrustPoint>
+								<TrustPoint>
+									<!-- AC DNIE -->
+									<ds:X509Certificate>MIIFvzCCA6egAwIBAgIQANKFcP2up9ZfEYQVxjG1yzANBgkqhkiG9w0BAQUFADBdMQswCQYDVQQGEwJFUzEoMCYGA1UECgwfRElSRUNDSU9OIEdFTkVSQUwgREUgTEEgUE9MSUNJQTENMAsGA1UECwwERE5JRTEVMBMGA1UEAwwMQUMgUkFJWiBETklFMB4XDTA2MDIxNjEwMzcyNVoXDTM2MDIwODIyNTk1OVowXTELMAkGA1UEBhMCRVMxKDAmBgNVBAoMH0RJUkVDQ0lPTiBHRU5FUkFMIERFIExBIFBPTElDSUExDTALBgNVBAsMBEROSUUxFTATBgNVBAMMDEFDIFJBSVogRE5JRTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAIAArQzDoyAHo2P/9zSgze5qVAgXXbEBFafmuV+Kcf8Mwh3qN/Pek3/WBU2EstXXHAz0xJFwQA5ayJikgOgNM8AH87f1rKE4esBmVCT8UswwKvLDxKEsdr/BwL+C8ZvwaHoTQMiXvBwlBwgKt5bvzClU4OZlLeqyLrEJaRJOMNXY+LwAgC9Nkw/NLlcbM7ufME7Epct5p/viNBi2IJ4bn12nyTqtRWSzGM4REpxtHlVFKIScV2dN+cvii49YCdQ5/8g20jjiDGV/FQ59wQfdqSLfkQDEbHE0dNw56upPRGl/WNtYClJxK+ypHVB0M/kpavr+mfTnzEVFbcpaJaIS487XOAU58BoJ9XZZzmJvejQNLNG8BBLsPVPI+tACy849IbXF4DkzZc85U8mbRvmdM/NZgAhBvm9LoPpKzqR2HIXir68UnWWs93+X5DNJpq++zis38S7BcwWcnGBMnTANl1SegWK75+Av9xQHFKl3kenckZWO04iQM0dvccMUafqmLQEeG+rTLuJ/C9zP5yLw8UGjAZLlgNO+qWKoVYgLNDTs3CEVqu/WIl6J9VGSEypvgBbZsQ3ZLvgQuML+UkUznB04fNwVaTRzv6AsuxF7lM34Ny1vPe+DWsYem3RJj9nCjb4WdlDIWtElFvb2zIycWjCeZb7QmkiT1/poDXUxh/n3AgMBAAGjezB5MA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBSORfSfc8X/LxsF2wFHYBsDioG3ujA3BgNVHSAEMDAuMCwGBFUdIAAwJDAiBggrBgEFBQcCARYWaHR0cDovL3d3dy5kbmllLmVzL2RwYzANBgkqhkiG9w0BAQUFAAOCAgEAdeVzyVFRL4sZoIfp/642Nqb8QR/jHtdxYBnGb5oCML1ica1z/pEtTuQmQESprngmIzFp3Jpzlh5JUQvg78G4Q+9xnO5Bt8VQHzKEniKG8fcfj9mtK07alyiXu5aaGvix2XoE81SZEhmWFYBnOf8CX3r8VUJQWua5ov+4qGIeFM3ZP76jZUjFO9c3zg36KJDav/njUUclfUrTZ02HqmK8Xux6gER8958KvWVXlMryEWbWUn/kOnB1BM07l9Q2cvdRVr809dJB4bTaqEP+axJJErRdzyJClowIIyaMshBOXapT7gEvdeW5ohEzxNdq/fgOym6C2ee7WSNOtfkRHS9rI/V7ESDqQRKQMkbbMTupwVtzaDpGG4z+l7dWuWGZzE7wg/o38d4cnRxxiwOTw8Rzgi6omB1kopqM91QITc/qgcv1WwmZY691jJb4eTXV3OtBgXk4hF5v8W9idtuRzlqFYDkdW+IqL0Ml28J6JNMVsKLxjKB9a0gJE/+iTGaK7HBSCVOMMMy41bok3DCZPqFet9+BrOw3vk6bJ1jefqGbVH8Gti/kMlD95xC7qM3aGBvUY2Y96lFxOfScPt9a9NrHTCbti7UhujR5AnNhENqYMahgy34Hp9C3BUOJW82FJtmwUa/3jFKqEqdY35KbZ/Kd8ub0aTH0Fufed1se3ZoFAa0=</ds:X509Certificate>
+									<ds:X509Certificate>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</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<AcceptablePolicy>
+										<!-- DNIe Firma -->
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:2.16.724.1.2.2.2.3</XAdES:Identifier>
+										<XAdES:Description>Política de Certificados Reconocidos de
+Firma Electrónica</XAdES:Description>
+										<XAdES:DocumentationReferences>
+											<XAdES:DocumentationReference>http://www.dnielectronico.es/PDFs/politicas_de_certificacion.pdf</XAdES:DocumentationReference>
+										</XAdES:DocumentationReferences>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- FirmaProfesional -->
+							<CertificateTrustPoint>
+								<TrustPoint>
+									<!-- AC Firmaprofesional - CA1 -->
+									<ds:X509Certificate>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</ds:X509Certificate>
+									<ds:X509Certificate>MIIEVzCCAz+gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBnTELMAkGA1UEBhMCRVMxIjAgBgNVBAcTGUMvIE11bnRhbmVyIDI0NCBCYXJjZWxvbmExQjBABgNVBAMTOUF1dG9yaWRhZCBkZSBDZXJ0aWZpY2FjaW9uIEZpcm1hcHJvZmVzaW9uYWwgQ0lGIEE2MjYzNDA2ODEmMCQGCSqGSIb3DQEJARYXY2FAZmlybWFwcm9mZXNpb25hbC5jb20wHhcNMDExMDI0MjIwMDAwWhcNMTMxMDI0MjIwMDAwWjCBnTELMAkGA1UEBhMCRVMxIjAgBgNVBAcTGUMvIE11bnRhbmVyIDI0NCBCYXJjZWxvbmExQjBABgNVBAMTOUF1dG9yaWRhZCBkZSBDZXJ0aWZpY2FjaW9uIEZpcm1hcHJvZmVzaW9uYWwgQ0lGIEE2MjYzNDA2ODEmMCQGCSqGSIb3DQEJARYXY2FAZmlybWFwcm9mZXNpb25hbC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDnIwNvbyOlXnjOlSztlB5uCp4Bx+ow0Syd3Tfom5h5VtP8c9/Qit5Vj1H5WuretXDE7aTt/6MNbg9kUDGvASdYrv5sp0ovFy3Tc9UTHI9ZpTQsHVQERc1ouKDAA6XPhUJHlShbz++AbOCQl4oBPB3zhxAwJkh91/zpnZFx/0GaqUC1N5wpIE8fUuOgfRNtVLcK3ulqTgesrBlf3H5idPayBQC6haD9HThuy1q7hryUZzM1gywfI834yJFxzJeL764P3CkDG8A563DtwW4O2GcLiam8NeTvtjS0pbbELaW+0MOUJEjb35bTALVmGotmBQ/dPz/LP6pemkr4tErvlTcbAgMBAAGjgZ8wgZwwKgYDVR0RBCMwIYYfaHR0cDovL3d3dy5maXJtYXByb2Zlc2lvbmFsLmNvbTASBgNVHRMBAf8ECDAGAQH/AgEBMCsGA1UdEAQkMCKADzIwMDExMDI0MjIwMDAwWoEPMjAxMzEwMjQyMjAwMDBaMA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUMwugZtHq2s7eYpMEKFK1FH84aLcwDQYJKoZIhvcNAQEFBQADggEBAEdz/o0nVPD11HecJ3lXV7cVVuzH2Fi3AQL0M+2TUIiefEaxvT8Ub/GzR0iLjJcG1+p+o1wqu00vR+L4OQbJnC4xGgN49Lw4xiKLMzHwFgQEffl25EvXwOaD7FnMP97/T2u3Z36mhoEyIwOdyPdfwUpgpZKpsaSgYMN4h7Mi8yrrW6ntBas3D7Hi05V2Y1Z0jFhyGzflZKG+TQyTmAyX9odtsz/ny4Cm7YjHX1BiAuiZdBbQ5rQ58SfLyEDW44YQqSMSkuBpQWOnryULwMWSyx6Yo1q6xTMPoJcB3X/ge9YGVM+h4k0460tQtcsm9MracEpqoeJ5quGnM/b9Sh/22WA=</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!--  -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!--  -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!--  -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!--  -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!--  -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.5.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!--  -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.5.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.6.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.13177.10.1.6.2</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- Camerfirma (Certificados Camerales) -->
+							<CertificateTrustPoint>
+								<TrustPoint>
+									<!-- AC CamerFirma Certificados Camerales -->
+									<ds:X509Certificate>MIIEvTCCA6WgAwIBAgIBADANBgkqhkiG9w0BAQUFADB/MQswCQYDVQQGEwJFVTEnMCUGA1UEChMeQUMgQ2FtZXJmaXJtYSBTQSBDSUYgQTgyNzQzMjg3MSMwIQYDVQQLExpodHRwOi8vd3d3LmNoYW1iZXJzaWduLm9yZzEiMCAGA1UEAxMZQ2hhbWJlcnMgb2YgQ29tbWVyY2UgUm9vdDAeFw0wMzA5MzAxNjEzNDNaFw0zNzA5MzAxNjEzNDRaMH8xCzAJBgNVBAYTAkVVMScwJQYDVQQKEx5BQyBDYW1lcmZpcm1hIFNBIENJRiBBODI3NDMyODcxIzAhBgNVBAsTGmh0dHA6Ly93d3cuY2hhbWJlcnNpZ24ub3JnMSIwIAYDVQQDExlDaGFtYmVycyBvZiBDb21tZXJjZSBSb290MIIBIDANBgkqhkiG9w0BAQEFAAOCAQ0AMIIBCAKCAQEAtzZV5aVdGDDg2olUkfzIx1L4L1DZ77F1c2VHfRtbunXF/KGIJPov7coISjlUxFF6tdpg6jg8gbLL8bvZkSM/SAFwdakFKq0fcfPJVD0dBmpAPrMMhe5cG3nCYsS4No41XQEMIwRHNaqbYE6gZj3LJgqcQKH0XZi/caulAGgq7YN6D6IUtdQis4CwPAxaUWktWBiP7Zme8a7ileb2R6jWDA+wWFjbw2Y3npuRVDM30pQcakjJyfKl2qUMI/cjDpwyVV5xnIQFUZot/eZOKjRa3spAN2cMVCFVd9oKDMyXroDclDZK9D7ONhMeU+SsTjoF7Nuucpw4i9A5O4kKPnf+dQIBA6OCAUQwggFAMBIGA1UdEwEB/wQIMAYBAf8CAQwwPAYDVR0fBDUwMzAxoC+gLYYraHR0cDovL2NybC5jaGFtYmVyc2lnbi5vcmcvY2hhbWJlcnNyb290LmNybDAdBgNVHQ4EFgQU45T1sU3p26EpW1eLTXYGduHRooowDgYDVR0PAQH/BAQDAgEGMBEGCWCGSAGG+EIBAQQEAwIABzAnBgNVHREEIDAegRxjaGFtYmVyc3Jvb3RAY2hhbWJlcnNpZ24ub3JnMCcGA1UdEgQgMB6BHGNoYW1iZXJzcm9vdEBjaGFtYmVyc2lnbi5vcmcwWAYDVR0gBFEwTzBNBgsrBgEEAYGHLgoDATA+MDwGCCsGAQUFBwIBFjBodHRwOi8vY3BzLmNoYW1iZXJzaWduLm9yZy9jcHMvY2hhbWJlcnNyb290Lmh0bWwwDQYJKoZIhvcNAQEFBQADggEBAAxBl8IahsAifJ/7kPMa0QOx7xP5IV8EnNrJpY0nbJaHkb5BkAFyk+cefV/2icZdp0AJPaxJRUXcLo0waLIJuvvDL8y6C98/d3tGfToSJI6WjzwFCm/SlCgdbQzALogi1djPHRPH8EjX1wWnz8dHnjs8NMiAT9QUu/wNUPf6s+xCX6ndbcj0dc97wXImsQEcXCz9ek60AcUFV7nnPKoF2YjpB0ZBzu9Bga5Y34OirsrXdx/nADydb47kMgkdTXg0eDQ8lJsm7U9xxhl6vSAiSFr+S30Dt+dYvsYyTnQeaN2oaFuzPu5ifdmA6Ap1erfutGWaIZDgqtCYvDi1czyL+Nw=</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.2.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.2.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.2.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.2.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.3.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.3.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.3.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.3.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.4.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.4.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.4.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.4.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.7.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.7.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.7.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.9.7.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- Camerfirma (RACER) -->
+							<CertificateTrustPoint>
+								<TrustPoint>
+									<!-- AC CamerFirma Cerificados Racer -->
+									<ds:X509Certificate>MIIExTCCA62gAwIBAgIBADANBgkqhkiG9w0BAQUFADB9MQswCQYDVQQGEwJFVTEnMCUGA1UEChMeQUMgQ2FtZXJmaXJtYSBTQSBDSUYgQTgyNzQzMjg3MSMwIQYDVQQLExpodHRwOi8vd3d3LmNoYW1iZXJzaWduLm9yZzEgMB4GA1UEAxMXR2xvYmFsIENoYW1iZXJzaWduIFJvb3QwHhcNMDMwOTMwMTYxNDE4WhcNMzcwOTMwMTYxNDE4WjB9MQswCQYDVQQGEwJFVTEnMCUGA1UEChMeQUMgQ2FtZXJmaXJtYSBTQSBDSUYgQTgyNzQzMjg3MSMwIQYDVQQLExpodHRwOi8vd3d3LmNoYW1iZXJzaWduLm9yZzEgMB4GA1UEAxMXR2xvYmFsIENoYW1iZXJzaWduIFJvb3QwggEgMA0GCSqGSIb3DQEBAQUAA4IBDQAwggEIAoIBAQCicKLQn0KuWxfH2H3PFIP8T8mhtxOviteePgQKkotgVvq0Mi+ITaFgCPS3CU6gSS9J1tPfnZdan5QEcOw/Wdm3zGaLmFIoCQLfxS+EjXqXd7/sQJ0lcqu1PzKY+7e3/HKE5TWH+VX6ox8Oby4o3Wmg2UIQxvi1RMLQQ3/bvOSiPGpVeAp3qdjqGTK3L/5cPxvusZjsyq16aUXjlg9V9ubtdepl6DJWk0aJqCWKZQbua795B9Dxt6/tLE2Su8CoX6dnfQTyFQhwrJLWfQTSM/tMtgsL+xrJxI0DqX5c8lCrEqWhz0hQpe/SyBoT+rB/sYIcd2oPX9wLlY/vQ37mRQklAgEDo4IBUDCCAUwwEgYDVR0TAQH/BAgwBgEB/wIBDDA/BgNVHR8EODA2MDSgMqAwhi5odHRwOi8vY3JsLmNoYW1iZXJzaWduLm9yZy9jaGFtYmVyc2lnbnJvb3QuY3JsMB0GA1UdDgQWBBRDnDafsJ4wTcbOX60Qq+UDpfqpFDAOBgNVHQ8BAf8EBAMCAQYwEQYJYIZIAYb4QgEBBAQDAgAHMCoGA1UdEQQjMCGBH2NoYW1iZXJzaWducm9vdEBjaGFtYmVyc2lnbi5vcmcwKgYDVR0SBCMwIYEfY2hhbWJlcnNpZ25yb290QGNoYW1iZXJzaWduLm9yZzBbBgNVHSAEVDBSMFAGCysGAQQBgYcuCgEBMEEwPwYIKwYBBQUHAgEWM2h0dHA6Ly9jcHMuY2hhbWJlcnNpZ24ub3JnL2Nwcy9jaGFtYmVyc2lnbnJvb3QuaHRtbDANBgkqhkiG9w0BAQUFAAOCAQEAPDtwkfkEVCeR4e3t/mh/YV3lQWVPMvEYBZRqHN4fcNs+ezICNLUMbKGKfKX0j//U2K0X1S0E0T9YgOKBWYi+wONGkyT+kL0mojAt6JcmVzWJdJYY9hXiryQZVgICsroPFOrGimbBhkVVi76SvpykBMdJPJ7oKXqJ1/6v/2j1pReQvayZzKWGVwlnRtvWFsJG8eSpUPWP0ZIV018+xgBJOm5YstHRJw0lyDL4IBHNfTIzSJRUTN3cecQwn+uOuFW114hcxWokPbLTBQNRxgfvzBRydD1ucs4YKIxKoHflCStFREest2d/AYoFWpO+ocH/+OcOZ6RHSXZddZAa9SaP8A==</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.2.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.2.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.2.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.2.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.3.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.3.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.3.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.3.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.4.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.4.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.4.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.17326.10.8.4.2.2</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- ANCert (Notariales Personales) -->
+							<CertificateTrustPoint>
+								<!-- ANCERT Certificados Notariales Personales -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIFPDCCBCSgAwIBAgIRAPTPierdpMY+ka1IDi0iNoQwDQYJKoZIhvcNAQEFBQAwgYMxCzAJBgNVBAYTAkVTMUswSQYDVQQKE0JBZ2VuY2lhIE5vdGFyaWFsIGRlIENlcnRpZmljYWNpb24gUy5MLiBVbmlwZXJzb25hbCAtIENJRiBCODMzOTU5ODgxJzAlBgNVBAMTHkFOQ0VSVCBDZXJ0aWZpY2Fkb3MgTm90YXJpYWxlczAeFw0wNDAyMTExNTU4MzBaFw0yNDAyMTExNTU4MjZaMIGDMQswCQYDVQQGEwJFUzFLMEkGA1UEChNCQWdlbmNpYSBOb3RhcmlhbCBkZSBDZXJ0aWZpY2FjaW9uIFMuTC4gVW5pcGVyc29uYWwgLSBDSUYgQjgzMzk1OTg4MScwJQYDVQQDEx5BTkNFUlQgQ2VydGlmaWNhZG9zIE5vdGFyaWFsZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDwkQ/QZy0psmNNHzV59mVrufPztViTJ2RPp9VbggVym38drgjSjNDRyWCwmRk11hnGADlpfSLvdCKDtH7qEIs+Mxzh3WQ2KfNSSm5Bw75RDB9juL+NqT8xMTu78TZEPCdlFHl15hCkPFgby1NiEvWHWkaieaNg4xao3oSm+uXMxBAy9kLaR00YPeZ6DysOY/9nfUPVdBaQNLQPziZzIcFK2mTkT+Mjtdn2q7dKf5bhy0f9BkPRlDRpCv496GaqJgzVYzkGcJOtfLPkR8E7R45plwyRoEwHj8mATK5wk2iPocMiwvF1myh9kpJVOqhZGewSMRzvnRfcuUAJW/QtEyZzAgMBAAGjggGnMIIBozAcBgNVHREEFTATgRFhbmNlcnRAYW5jZXJ0LmNvbTAfBgNVHSMEGDAWgBSE9/pyXohkZh0ojLB3vQxqn0xNYjAPBgNVHRMBAf8EBTADAQH/MIIBIAYDVR0gBIIBFzCCARMwggEPBgkrBgEEAYGTaAEwggEAMCUGCCsGAQUFBwIBFhlodHRwOi8vd3d3LmFuY2VydC5jb20vY3BzMIHWBggrBgEFBQcCAjCByTANFgZBTkNFUlQwAwIBARqBt0FnZW5jaWEgTm90YXJpYWwgZGUgQ2VydGlmaWNhY2lvbi4gTGEgZGVjbGFyYWNpb24gZGUgcHJhY3RpY2FzIGRlIGNlcnRpZmlhY2lvbiBxdWUgcmlnZSBlbCBmdW5jaW9uYW1pZW50byBkZSBsYSBwcmVzZW50ZSBhdXRvcmlkYWQgc2UgZW5jdWVudHJhIGRpc3BvbmlibGUgZW4gaHR0cDovL3d3dy5hbmNlcnQuY29tL2NwczAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0OBBYEFIT3+nJeiGRmHSiMsHe9DGqfTE1iMA0GCSqGSIb3DQEBBQUAA4IBAQAv+OXYM6XClG5ewPHuoUwKrYYPwDPdntLZm+7FK4UpdqylElOTHaoH7Ok5ZAto8HUk6dGGjJxTausVoQm3GQe5nY8CshtJcMJjdN0Lqv4HxjdWxoP+wE8czDiq/e5VmIlcwlOtIIe6FmRSYezBn7vUYtEqyF3wK/jaEs4jy7HMwdIKvfzAgE5VSfqJ2GSjSsrui9fl7ZL7YOLiKs8tKD6m/4CcZcwSnqUcdFmQpYd/ZxWAEMCh0agw7KECkYpa0yMXk1pHIXnqM3oPfzg1mspWuL9kuqewtVEdFp6OiX04OsuETQeY2OXhjAVqpTcM1nkpPvFCxLb36hmgYeACTr8S</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18920.1.1.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18920.1.1.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- ANCert (Notariales Corporativos) -->
+							<CertificateTrustPoint>
+								<!-- ANCERT Certificados Notariales Corporativos -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIFPDCCBCSgAwIBAgIRAPTPierdpMY+ka1IDi0iNoQwDQYJKoZIhvcNAQEFBQAwgYMxCzAJBgNVBAYTAkVTMUswSQYDVQQKE0JBZ2VuY2lhIE5vdGFyaWFsIGRlIENlcnRpZmljYWNpb24gUy5MLiBVbmlwZXJzb25hbCAtIENJRiBCODMzOTU5ODgxJzAlBgNVBAMTHkFOQ0VSVCBDZXJ0aWZpY2Fkb3MgTm90YXJpYWxlczAeFw0wNDAyMTExNTU4MzBaFw0yNDAyMTExNTU4MjZaMIGDMQswCQYDVQQGEwJFUzFLMEkGA1UEChNCQWdlbmNpYSBOb3RhcmlhbCBkZSBDZXJ0aWZpY2FjaW9uIFMuTC4gVW5pcGVyc29uYWwgLSBDSUYgQjgzMzk1OTg4MScwJQYDVQQDEx5BTkNFUlQgQ2VydGlmaWNhZG9zIE5vdGFyaWFsZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDwkQ/QZy0psmNNHzV59mVrufPztViTJ2RPp9VbggVym38drgjSjNDRyWCwmRk11hnGADlpfSLvdCKDtH7qEIs+Mxzh3WQ2KfNSSm5Bw75RDB9juL+NqT8xMTu78TZEPCdlFHl15hCkPFgby1NiEvWHWkaieaNg4xao3oSm+uXMxBAy9kLaR00YPeZ6DysOY/9nfUPVdBaQNLQPziZzIcFK2mTkT+Mjtdn2q7dKf5bhy0f9BkPRlDRpCv496GaqJgzVYzkGcJOtfLPkR8E7R45plwyRoEwHj8mATK5wk2iPocMiwvF1myh9kpJVOqhZGewSMRzvnRfcuUAJW/QtEyZzAgMBAAGjggGnMIIBozAcBgNVHREEFTATgRFhbmNlcnRAYW5jZXJ0LmNvbTAfBgNVHSMEGDAWgBSE9/pyXohkZh0ojLB3vQxqn0xNYjAPBgNVHRMBAf8EBTADAQH/MIIBIAYDVR0gBIIBFzCCARMwggEPBgkrBgEEAYGTaAEwggEAMCUGCCsGAQUFBwIBFhlodHRwOi8vd3d3LmFuY2VydC5jb20vY3BzMIHWBggrBgEFBQcCAjCByTANFgZBTkNFUlQwAwIBARqBt0FnZW5jaWEgTm90YXJpYWwgZGUgQ2VydGlmaWNhY2lvbi4gTGEgZGVjbGFyYWNpb24gZGUgcHJhY3RpY2FzIGRlIGNlcnRpZmlhY2lvbiBxdWUgcmlnZSBlbCBmdW5jaW9uYW1pZW50byBkZSBsYSBwcmVzZW50ZSBhdXRvcmlkYWQgc2UgZW5jdWVudHJhIGRpc3BvbmlibGUgZW4gaHR0cDovL3d3dy5hbmNlcnQuY29tL2NwczAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0OBBYEFIT3+nJeiGRmHSiMsHe9DGqfTE1iMA0GCSqGSIb3DQEBBQUAA4IBAQAv+OXYM6XClG5ewPHuoUwKrYYPwDPdntLZm+7FK4UpdqylElOTHaoH7Ok5ZAto8HUk6dGGjJxTausVoQm3GQe5nY8CshtJcMJjdN0Lqv4HxjdWxoP+wE8czDiq/e5VmIlcwlOtIIe6FmRSYezBn7vUYtEqyF3wK/jaEs4jy7HMwdIKvfzAgE5VSfqJ2GSjSsrui9fl7ZL7YOLiKs8tKD6m/4CcZcwSnqUcdFmQpYd/ZxWAEMCh0agw7KECkYpa0yMXk1pHIXnqM3oPfzg1mspWuL9kuqewtVEdFp6OiX04OsuETQeY2OXhjAVqpTcM1nkpPvFCxLb36hmgYeACTr8S</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18920.1.3.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18920.1.3.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- ANCert (Corporaciones de Derecho Publico) -->
+							<CertificateTrustPoint>
+								<!-- ANCERT Certificados para Corporaciones de Derecho Publico -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIFTTCCBDWgAwIBAgIQP7Ll8tF8ixhkVmKpOYF/pzANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCRVMxSzBJBgNVBAoTQkFnZW5jaWEgTm90YXJpYWwgZGUgQ2VydGlmaWNhY2lvbiBTLkwuIFVuaXBlcnNvbmFsIC0gQ0lGIEI4MzM5NTk4ODEwMC4GA1UEAxMnQU5DRVJUIENvcnBvcmFjaW9uZXMgZGUgRGVyZWNobyBQdWJsaWNvMB4XDTA0MDIxMTE3MjI0NVoXDTI0MDIxMTE3MjI0NVowgYwxCzAJBgNVBAYTAkVTMUswSQYDVQQKE0JBZ2VuY2lhIE5vdGFyaWFsIGRlIENlcnRpZmljYWNpb24gUy5MLiBVbmlwZXJzb25hbCAtIENJRiBCODMzOTU5ODgxMDAuBgNVBAMTJ0FOQ0VSVCBDb3Jwb3JhY2lvbmVzIGRlIERlcmVjaG8gUHVibGljbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKIhlYfciuvWepCoaDX9F/x0OlQQkjWTQnUu2D7LqZShvmo3P1K6pHvahJkWeU4AaNQfE+lGOzxKnYM62CHvwvJAReEPYEUE7fyKGC75PeSkETIgjjq37pZAFRqZ6SGdcqzNH4muqtmhQLCoZ778eg5HsV68+DBqjjefBULsLMOmG4urxFA9+uRz9SGwuFVfh+CiRzgvQF9PbKuUJFbjTI9+kOkngiibmLqa1rWbV29rFRz5u3ApfTz3E6jRcfGw/ohFcamldGXLw/n1Aw8Qw4YwAG7BwCaiiP4hxzI9u8Z7G7ebirP6sXxx2QGnQpCqL5iQhKrexq3sPFFKBR0BUZsCAwEAAaOCAacwggGjMA8GA1UdEwEB/wQFMAMBAf8wggEgBgNVHSAEggEXMIIBEzCCAQ8GCSsGAQQBgZNoAzCCAQAwJQYIKwYBBQUHAgEWGWh0dHA6Ly93d3cuYW5jZXJ0LmNvbS9jcHMwgdYGCCsGAQUFBwICMIHJMA0WBkFOQ0VSVDADAgEBGoG3QWdlbmNpYSBOb3RhcmlhbCBkZSBDZXJ0aWZpY2FjaW9uLiBMYSBkZWNsYXJhY2lvbiBkZSBwcmFjdGljYXMgZGUgY2VydGlmaWFjaW9uIHF1ZSByaWdlIGVsIGZ1bmNpb25hbWllbnRvIGRlIGxhIHByZXNlbnRlIGF1dG9yaWRhZCBzZSBlbmN1ZW50cmEgZGlzcG9uaWJsZSBlbiBodHRwOi8vd3d3LmFuY2VydC5jb20vY3BzMA4GA1UdDwEB/wQEAwIBhjAcBgNVHREEFTATgRFhbmNlcnRAYW5jZXJ0LmNvbTAfBgNVHSMEGDAWgBSMTB43DLGf0qxECzq+As/0jS1mlTAdBgNVHQ4EFgQUjEweNwyxn9KsRAs6vgLP9I0tZpUwDQYJKoZIhvcNAQEFBQADggEBAEd0wJSR4qX7mFJEk2zEwB3gedtpZC1hrqR3kTW1t8qXqsCxhvUbaGuqWLJ8P+cDJ/hBcbym0iCpgJWiR61tRnSthJvYb6n1uS9tm8DdmYftWbJ1gaWJhSrM0IWBTfOvd96MwSiaQqwFhww0nHGH/ewBFB++wy7w3/okpl0fPPGiC1GIAa4Sh6S1XXGy3+8NfCDjfxMLTabAd8w/1g9xx3FMLh76GQZlya1WbHeNRj+9MIMe4C5VuHgjdDxYCmM6TYF7bzVwrrYl2fYk/iPG2hqIr6gUk3PgwFuwMWka9ilfVrcaCsL5C+oCwTMRYmp8Q+jqGquQAIXgRQ99jrpQ1cY=</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18920.3.1.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- ANCert (FERN i Empleados de Notarías) -->
+							<CertificateTrustPoint>
+								<!-- ANCERT Certificados CGN -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIFKjCCBBKgAwIBAgIPRHTsyGxyHljduCx+9PyVMA0GCSqGSIb3DQEBBQUAMHwxCzAJBgNVBAYTAkVTMUswSQYDVQQKE0JBZ2VuY2lhIE5vdGFyaWFsIGRlIENlcnRpZmljYWNpb24gUy5MLiBVbmlwZXJzb25hbCAtIENJRiBCODMzOTU5ODgxIDAeBgNVBAMTF0FOQ0VSVCBDZXJ0aWZpY2Fkb3MgQ0dOMB4XDTA0MDIxMTE3MjcxMloXDTI0MDIxMTE3MjcxMlowfDELMAkGA1UEBhMCRVMxSzBJBgNVBAoTQkFnZW5jaWEgTm90YXJpYWwgZGUgQ2VydGlmaWNhY2lvbiBTLkwuIFVuaXBlcnNvbmFsIC0gQ0lGIEI4MzM5NTk4ODEgMB4GA1UEAxMXQU5DRVJUIENlcnRpZmljYWRvcyBDR04wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCQdT8/DKzK1HzESKcYuzq7obvVe9+LGeSCRPtl7LYSYT5pIhliNSS21RAGqUVqJCr1J4x4PMi58wVsxQID0k6AZOyGq3iUIgIAtWib1OVVX+DIgDDnC79r1wSOTnmYcEwcJrmzqOrwEaK5ilMCJnUSieH7iE5ZegDRgtgWruW2vJUlYEB3JRue743k/fBPMzElv+56ClTwkDhnEnulYNoMAYmadocu9RtDe+XnJkr7FWKrRRt71QqlTWxNq58oSIThg3W4GHBVU9vQ3ymQrznGF5XBlMVe2WVfXf9uFpWYIZ9eTfDNMTkhAxcNkR+hVZlB7FXJuz2ZXJvFf9EcXupTAgMBAAGjggGnMIIBozAPBgNVHRMBAf8EBTADAQH/MIIBIAYDVR0gBIIBFzCCARMwggEPBgkrBgEEAYGTaAQwggEAMCUGCCsGAQUFBwIBFhlodHRwOi8vd3d3LmFuY2VydC5jb20vY3BzMIHWBggrBgEFBQcCAjCByTANFgZBTkNFUlQwAwIBARqBt0FnZW5jaWEgTm90YXJpYWwgZGUgQ2VydGlmaWNhY2lvbi4gTGEgZGVjbGFyYWNpb24gZGUgcHJhY3RpY2FzIGRlIGNlcnRpZmlhY2lvbiBxdWUgcmlnZSBlbCBmdW5jaW9uYW1pZW50byBkZSBsYSBwcmVzZW50ZSBhdXRvcmlkYWQgc2UgZW5jdWVudHJhIGRpc3BvbmlibGUgZW4gaHR0cDovL3d3dy5hbmNlcnQuY29tL2NwczAOBgNVHQ8BAf8EBAMCAYYwHAYDVR0RBBUwE4ERYW5jZXJ0QGFuY2VydC5jb20wHwYDVR0jBBgwFoAU7FefyHYib8w6rlvwLaFiWNGNAswwHQYDVR0OBBYEFOxXn8h2Im/MOq5b8C2hYljRjQLMMA0GCSqGSIb3DQEBBQUAA4IBAQCLPd/cNix/J5z8tVhTcQoSXRBkUXG1Slb0XkRnHu8dsvGkUTxnbCxllnqhEqOvCwg3DpnWbiiHC2KrTnhOcoGb3xFPiWDIUaYbBglxc3w3txw4N5r5h+Hvoe5/18DqORT6fG8L+YbK5sV3aaCfjSmjd27FzNr23QZ602lmPmA74zLfrvAbniqdzITfGhBH7aVWlkI3tS1yDUESk7oyiETIrgnEvYDt/WAPcrK2ZPZjIDJwd4cuMy6fNchfqJJWt/8kOixd8iYFaBnyUWfP31IJ6YIEemuCp3/l0ql0axgmyLrU1R6lSzsmwZ0i4fsSvdViRtXXXdLdw/xhDTAFTwWL</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18920.4.1.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18920.4.2.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- ANF -->
+							<CertificateTrustPoint>
+								<!-- ANF Server CA -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIFyDCCBLCgAwIBAgIBKTANBgkqhkiG9w0BAQUFADCB2jELMAkGA1UEBhMCRVMxEjAQBgNVBAgTCUJhcmNlbG9uYTFIMEYGA1UEBww/QmFyY2Vsb25hIChzZWUgY3VycmVudCBhZGRyZXNzIGF0IGh0dHBzOi8vd3d3LmFuZi5lcy9hZGRyZXNzLyApMScwJQYDVQQKEx5BTkYgQXV0b3JpZGFkIGRlIENlcnRpZmljYWNpb24xFzAVBgNVBAsTDkFORiBDbGFzZSAxIENBMRMwEQYDVQQFEwpHLTYzMjg3NTEwMRYwFAYDVQQDEw1BTkYgU2VydmVyIENBMB4XDTA1MDQwNTE0MjkwNVoXDTE1MDQwMzE0MjkwNVowgdoxCzAJBgNVBAYTAkVTMRIwEAYDVQQIEwlCYXJjZWxvbmExSDBGBgNVBAcMP0JhcmNlbG9uYSAoc2VlIGN1cnJlbnQgYWRkcmVzcyBhdCBodHRwczovL3d3dy5hbmYuZXMvYWRkcmVzcy8gKTEnMCUGA1UEChMeQU5GIEF1dG9yaWRhZCBkZSBDZXJ0aWZpY2FjaW9uMRcwFQYDVQQLEw5BTkYgQ2xhc2UgMSBDQTETMBEGA1UEBRMKRy02MzI4NzUxMDEWMBQGA1UEAxMNQU5GIFNlcnZlciBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL/qSKeaiDlrLEhABwSTfPe4LX6lN+Jh1iH8kDfLaT5eizffW2872LbDiECQ9J0MXBBSsbPlX5EQ5v2ogBRf04u9XL0PI5IJN+Ny0maUC1x0lC9e8k7YA8azzlalHNl7/U8HTNS32l8pTXXyH1XPMiMcRgknHUXs8Yw0id57FqdDXoor6ZRDHtc+k21viT287rHIt//JfeNfDW93ePUqLo3Ei5iXMLFGWgtjcNR4x4azf/8nQqqfim5toZTK7IcCHNZUS/28iZumYzhmjBaJiZfDUOj2QgGnd30QGZID6F1FyBXFhxsNkfLGOZx788AKmfjug29+QncRjsMfHHIvPRsCAwEAAaOCAZUwggGRMB0GA1UdDgQWBBS+O/a0MbdzJEg5xVcTlHWqn4E/LDAMBgNVHRMEBTADAQH/MA4GA1UdDwEB/wQEAwIBBjCB6gYDVR0gBIHiMIHfMIHcBgorBgEEAYGPHAEIMIHNMCwGCCsGAQUFBwIBFiBodHRwczovL3d3dy5hbmYuZXMvQUMvZG9jdW1lbnRvczCBnAYIKwYBBQUHAgIwgY8agYxBbnRlcyBkZSBhY2VwdGFyIGVzdGUgY2VydGlmaWNhZG8sIGNvbXBydWViZToKLUNvbmRpY2lvbmVzLCBsaW1pdGFjaW9uZXMgeSB1c29zIGF1dG9yaXphZG9zIHNlZ3VuIENQIGEgbGEgcXVlIHNlIHNvbWV0ZS4KLUVzdGFkbyBkZSB2aWdlbmNpYTAUBgorBgEEAYGPHBMBBAYbBDUtMzQwLgYKKwYBBAGBjxwqBgQgGx5odHRwczovL3d3dy5hbmYuZXMvQUMvQUNUQVMvNDEwHwYDVR0jBBgwFoAUvjv2tDG3cyRIOcVXE5R1qp+BPywwDQYJKoZIhvcNAQEFBQADggEBAHC1akrsjj10BanorDUxdLdmQgkWxy7V1SOvmpMX8I+4reU3JxEXFc4GaqjsJYfR4nZ2MSfnf1pjUHgG/Xw7f1AhrAju/wBN5agDTuHJV3Cpdon2Z42LmDGCoI4N2tI2QeaFBtL5WO5jETyTHBLmTKvzS3v6w2AXnt9wNubaoO44ljlpzCYEwUvz8qkALscchxypMYfDGW/bXHL8/Nzo7Z76nw8askDAk0HCiCnZFGNsCRi+OvgchbqSH2amUCBJuHqippHoehiEexjH7g7yc9I3hKsKmYyFMv34F1gOU16oSCwXjwYO0GmRdlhf+A+EODN9eImoJJjtxqvQRmj1wtI=</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18332.2.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18332.3.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.18332.3.4</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- IZENPE -->
+							<CertificateTrustPoint>
+								<!-- Izenpe.com -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIF8DCCA9igAwIBAgIPBuhGJy8fCo/RhFzjafbVMA0GCSqGSIb3DQEBBQUAMDgxCzAJBgNVBAYTAkVTMRQwEgYDVQQKDAtJWkVOUEUgUy5BLjETMBEGA1UEAwwKSXplbnBlLmNvbTAeFw0wNzEyMTMxMzA4MjdaFw0zNzEyMTMwODI3MjVaMDgxCzAJBgNVBAYTAkVTMRQwEgYDVQQKDAtJWkVOUEUgUy5BLjETMBEGA1UEAwwKSXplbnBlLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMnTesoPHqynhugWZWqxwhtFMnGV2f4QW8yv56V5AY+Jw8ryVXH3d753lPNypCxE2J6SmxQ6oeckkAoKVo7F2CaU4dlI4S0+2gpy3aOZFdqBoof0e24md4lYrdbrDLJBenNubdt6eEHpCIgSfocuZhFjbFT7PJ1ywLwu/8K33Q124zrX97RovqL144FuwUZvXY3gTcZUVYkaMzEKsVe5o4qYw+w7NMWVQWl+dcI8IMVhulFHoCCQk6GQS/NOfIVFVJrRBSZBsLVNHTO+xAPIJXzBcNs79AktVCdIrC/hxKw+yMuSTFM5NyPs0wH54AlETU1kwOENWocivK0bo/4mtRXzp/yEGensoYi0RGmEg/OJ0XQGqcwL1sLeJ4VQJsoXuMl6h1YsGgEebL4TrRCstST1OJGh1kva8bvS3ke18byB9llrzxlT6Y0Vy0rLqW9E5RtBz+GGp8rQap+8TI0GM1qiheWQNaBiXBZO8OOi+gMatCxxs1gs3nsL2xoP694hHwZ3BgOwye+Z/MC5TwuGKP7Suerj2qXDR2kS4Nvw9hmL7Xtw1wLW7YcYKCwEJEx35EiKGsY7mtQPyvp10gFAWo15v4vPS8+qFsGV5K1Mij4XkdSxYuWC5YAEpAN+jb/af6IPl08M0w3719Hlcn4cyHf/W5oPt64FRuXxqBbsR6QXAgMBAAGjgfYwgfMwgbAGA1UdEQSBqDCBpYEPaW5mb0BpemVucGUuY29tpIGRMIGOMUcwRQYDVQQKDD5JWkVOUEUgUy5BLiAtIENJRiBBMDEzMzcyNjAtUk1lcmMuVml0b3JpYS1HYXN0ZWl6IFQxMDU1IEY2MiBTODFDMEEGA1UECQw6QXZkYSBkZWwgTWVkaXRlcnJhbmVvIEV0b3JiaWRlYSAxNCAtIDAxMDEwIFZpdG9yaWEtR2FzdGVpejAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUHRxlDqjyJXu0kc/ksbHmvVV0bAUwDQYJKoZIhvcNAQEFBQADggIBAMeBRm8hGE+gBe/n1bqXUKJg7aWSFBpSm/nxiEqg3Hh10dUflU7F57dp5iL0+CmoKom+z892j+Mxc50m0xwbRxYpB2iEitL7sRskPtKYGCwkjq/2e+pEFhsqxPqgl+nqbFik73WrAGLRne0TNtsiC7bw0fRue0aHwp28vb5CO7dz0JoqPLRbEhYArxk5ja2DUBzIgU+9Ag89njWW7u/kwgN8KRwCfr00J16vU9adF79XbOnQgxCvv11N75B7XSus7Op9ACYXzAJcY9cZGKfsK8eKPlgOiofmg59OsjQerFQJTx0CCzl+gQgVuaBpE8gyK+OtbBPWg50jLbJtooiGfqgNASYJQNntKE6MkyQP2/EeTXp6WuKlWPHcj1+Zggwuz7LdmMySlD/5CbOlliVbN/UShUHiGUzGigjB3Bh6Dx4/glmimj4/+eAJn/3BkUtdyXvWton83x18hqrNA/ILUpLxYm9/h+qrdslsUMIZgq+qHfUgKGgu1fxkN0/PpUTEvnK0jHS0bKf68r10OEMr3q/53NjgnZ/cPcqlY0S/kqJPTIAcuxrDmkoEVU3K7iYLHL8CxWTTnn7S05EcS6L1HOUXHA0MUqORH5zwIe0ClG+poEnK6EOMxPQ02nwio8ZmPrgbBYhdurz3vOXcFD2nhqi2WVIhA16L4wTtSyoeo09Q</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.14777.4.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.14777.4.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.14777.2.6</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.14777.2.7</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.14777.2.8</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- ACA -->
+							<CertificateTrustPoint>
+								<!-- Autoridad de Certificacion de la Abogacia -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIEvDCCA6SgAwIBAgIQAJCLMk/BkBrOtMM4Cc3P5DANBgkqhkiG9w0BAQUFADB5MQswCQYDVQQGEwJFUzE2MDQGA1UEChMtQ29uc2VqbyBHZW5lcmFsIGRlIGxhIEFib2dhY2lhIE5JRjpRLTI4NjMwMDZJMTIwMAYDVQQDEylBdXRvcmlkYWQgZGUgQ2VydGlmaWNhY2lvbiBkZSBsYSBBYm9nYWNpYTAeFw0wNTA2MTMyMjAwMDBaFw0zMDA2MTMyMjAwMDBaMHkxCzAJBgNVBAYTAkVTMTYwNAYDVQQKEy1Db25zZWpvIEdlbmVyYWwgZGUgbGEgQWJvZ2FjaWEgTklGOlEtMjg2MzAwNkkxMjAwBgNVBAMTKUF1dG9yaWRhZCBkZSBDZXJ0aWZpY2FjaW9uIGRlIGxhIEFib2dhY2lhMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtLJX7oXwI+gN+7KAhPEQZ6uy+UnfXN5b5I8pGVPJ1egcUGthAoyH8I88wUWSC6yZocYahdY9rX4mph24PbKzPorFCjLTS5HvSXV+Vvf+oAhiRivO6vJRn2DeMsjtGqfPdVzrPcC9mkilhpTOWFAU6mrhmvSMZZXhYBUllRL2uniLssDt5myXJFod5HRDyjjENZRYjvWKsGg8KCxElgm/CVtyCudnPJC5VDh0VLttLWpDyLzvCawfI+hSVl41F18ru17NZVKlFHw7sqrp3Se1NyM7Bg0se4262m9mF4anttceB10ebBmXyOUjc3jRrvkeuqGuSSLtZXEff/dadESNQwIDAQABo4IBPjCCATowNwYDVR0RBDAwLoERYWNAYWNhYm9nYWNpYS5vcmeGGWh0dHA6Ly93d3cuYWNhYm9nYWNpYS5vcmcwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwEQYJYIZIAYb4QgEBBAQDAgAHMB0GA1UdDgQWBBT8iEyObQShIJDT+Byas2cEX3mAxjCBqwYDVR0gBIGjMIGgMIGdBgsrBgEEAYGBFQoBATCBjTApBggrBgEFBQcCARYdaHR0cDovL3d3dy5hY2Fib2dhY2lhLm9yZy9kb2MwYAYIKwYBBQUHAgIwVBpSQ29uc3VsdGUgbGEgZGVjbGFyYWNpb24gZGUgcHJhY3RpY2FzIGRlIGNlcnRpZmljYWNpb24gZW4gaHR0cDovL3d3dy5hY2Fib2dhY2lhLm9yZzANBgkqhkiG9w0BAQUFAAOCAQEAmKf6ObVzESZ/vIk/tGslMzEKhjhryR4VlxTg0kwthfQ8dJuNKBH7zA4muYCDFtH5Rpi2RgeOZoVtcMC6TIDzpPDVN1Qrr2aEcnP5SC8JzuGFAcqP4IfeoJfQlLQNtU0OZyzIYMQylMBBgQeNur+p6AxAmkJ4BV2B62Ic5E8UCj0LPh/p9M197kW7vN5d85iXJnvGEyn4K38a1Or6sm4gntoX6qGSvTfpDru7kdUl9mBdhSFQW/9UXfVLO7TDKRFYAvYl5OGCgruijeeRJF5AkZ5HB4wzV9RiMVF2dYVDbwmrEaUlKbnY/1+l9z/rZTsd74blFiLVHsoyaX1+BdcwJw==</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.16533.10.2.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.16533.10.3.1</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- ACCV -->
+							<CertificateTrustPoint>
+								<!-- Root CA Generalitat Valenciana -->
+								<TrustPoint>
+									<ds:X509Certificate>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</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.8149.3.6.4.0</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.8149.3.7.3.0</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.8149.3.10.1.0</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- FNMT -->
+							<CertificateTrustPoint>
+								<!-- FNMT Clase 2 CA -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIC+TCCAmKgAwIBAgIENvEbGTANBgkqhkiG9w0BAQUFADA2MQswCQYDVQQGEwJFUzENMAsGA1UEChMERk5NVDEYMBYGA1UECxMPRk5NVCBDbGFzZSAyIENBMB4XDTk5MDMxODE0NTYxOVoXDTE5MDMxODE1MjYxOVowNjELMAkGA1UEBhMCRVMxDTALBgNVBAoTBEZOTVQxGDAWBgNVBAsTD0ZOTVQgQ2xhc2UgMiBDQTCBnTANBgkqhkiG9w0BAQEFAAOBiwAwgYcCgYEAmD+tGTaTPT7+dkIU/TVv8fqtInpY40bQXcZa+WItjzFe/rQw/lB0rNadHeBixkndFBJ9cQusBsE/1waH4JCJ1uXjA7LyJ7GfM8iqazZKo8Q/eUGdiUYvKz5j1DhWkaodsQ1CdU3zh07jD03MtGy/YhOH6tCbjrbi/xn0lAnVlmECAQOjggEUMIIBEDARBglghkgBhvhCAQEEBAMCAAcwWAYDVR0fBFEwTzBNoEugSaRHMEUxCzAJBgNVBAYTAkVTMQ0wCwYDVQQKEwRGTk1UMRgwFgYDVQQLEw9GTk1UIENsYXNlIDIgQ0ExDTALBgNVBAMTBENSTDEwKwYDVR0QBCQwIoAPMTk5OTAzMTgxNDU2MTlagQ8yMDE5MDMxODE0NTYxOVowCwYDVR0PBAQDAgEGMB8GA1UdIwQYMBaAFECadkSXdAfErBTLHo1POkV8MNdhMB0GA1UdDgQWBBRAmnZEl3QHxKwUyx6NTzpFfDDXYTAMBgNVHRMEBTADAQH/MBkGCSqGSIb2fQdBAAQMMAobBFY0LjADAgSQMA0GCSqGSIb3DQEBBQUAA4GBAGFMoHxZY1tm+O5lE85DgEe5sjXJyITHa3NgReSdN531jiW5+aqqyuP4Q5wvoIkFsUUylCoeA41dpt7PV5Xa3yZgX8vflR64zgjY+IrJT6lodZPjLwVMZGACokIeb4ZoZVUO2ENv8pExPqNHPCgFr0W2nSJMJntLfVsV+RlG3whd</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.5734.3.5</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.5734.3.7</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- OMC -->
+							<CertificateTrustPoint>
+								<!-- OMC -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIFejCCBOOgAwIBAgIQGliOO/27Q1i4zixNXsvdGTANBgkqhkiG9w0BAQUFADCB
+wTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDlZlcmlTaWduLCBJbmMuMTwwOgYDVQQLEzNDbGFzcyAyIFB1YmxpYyBQcmltYXJ5IENlcnRpZmljYXRpb24gQXV0aG9yaXR5IC0gRzIxOjA4BgNVBAsTMShjKSAxOTk4IFZlcmlTaWduLCBJbmMuIC0gRm9yIGF1dGhvcml6ZWQgdXNlIG9ubHkxHzAdBgNVBAsTFlZlcmlTaWduIFRydXN0IE5ldHdvcmswHhcNMDcwMTI2MDAwMDAwWhcNMTIwMTI1MjM1OTU5WjCBvTELMAkGA1UEBhMCRVMxJTAjBgNVBAoTHE9yZ2FuaXphY2lvbiBNZWRpY2EgQ29sZWdpYWwxHzAdBgNVBAsTFlZlcmlTaWduIFRydXN0IE5ldHdvcmsxITAfBgNVBAsTGEVudGlkYWQgZGUgQ2VydGlmaWNhY2lvbjE1MDMGA1UECxMsQ2xhc3MgMiBNYW5hZ2VkIFBLSSBJbmRpdmlkdWFsIFN1YnNjcmliZXIgQ0ExDDAKBgNVBAMTA09NQzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMh8KxpiaUkZ/v52IdXWPjsDdpbf7vC/xRSAfxT3WyFIGm8yOSRs3PdpBqBJQadXoBzi0MNuRpCzgtcLaBtYgnQkxiVxK2fxXzBye3DTxRCJpN8o053eNf4bYbJoTzMoSKWnlxj0J4C/QiIqOWKFqiofG80uCYfs979IVhUlgOFrfcVXA3tLJnlo5NE0n5au2hzJhjnY0QnO6frYPgPbPnhszgJfEjh0FK/BJ3yoGAh1fjZ1TnNzmTT8RH0bI+KZ3hlQ3bCCkhtVFOWlINyY+8T4NYNFVO5lSE1fenhQdw5vv4lhGEXQcaJPSggkf/Vukr+xnEjgIaKqdCaDQAsNuq8CAwEAAaOCAe8wggHrMBIGA1UdEwEB/wQIMAYBAf8CAQAwRAYDVR0gBD0wOzA5BgtghkgBhvhFAQcXAjAqMCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy52ZXJpc2lnbi5jb20vcnBhMDQGA1UdHwQtMCswKaAnoCWGI2h0dHA6Ly9jcmwudmVyaXNpZ24uY29tL3BjYTItZzIuY3JsMBEGCWCGSAGG+EIBAQQEAwIBBjAOBgNVHQ8BAf8EBAMCAQYwLAYDVR0RBCUwI6QhMB8xHTAbBgNVBAMTFFByaXZhdGVMYWJlbDQtMjA0OC00MB0GA1UdDgQWBBTTWPzyL7b1vNDcJxk+qjxpKYiZdjCB6AYDVR0jBIHgMIHdoYHHpIHEMIHBMQswCQYDVQQGEwJVUzEXMBUGA1UEChMOVmVyaVNpZ24sIEluYy4xPDA6BgNVBAsTM0NsYXNzIDIgUHVibGljIFByaW1hcnkgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgLSBHMjE6MDgGA1UECxMxKGMpIDE5OTggVmVyaVNpZ24sIEluYy4gLSBGb3IgYXV0aG9yaXplZCB1c2Ugb25seTEfMB0GA1UECxMWVmVyaVNpZ24gVHJ1c3QgTmV0d29ya4IRALkvYMyIn6F6Rgm4W3Bsiq8wDQYJKoZIhvcNAQEFBQADgYEAhoiDkpMjL6M4aAT2k7flyIajekODNAlgTwZ7CDpKCB9TSGUhBVenGVhSWn5NtIF1aSTEfI6IMbU4ENsQz269mp55SDYLHu+Ie3T7uvYufggaUozh6q0WXhVbQI7B0hEZdb43xDBmb5Zr0dp80cZjKdNS4VEZcEnyMdZIpfldDSA=</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.26852.1.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.26852.1.1.2</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.26852.1.1.3</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.26852.1.1.4</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- HealthSign -->
+							<CertificateTrustPoint>
+								<!-- AC HEALTHSIGN -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIEozCCA4ugAwIBAgIQCBcIh68jiaVMz3OA+aOk/jANBgkqhkiG9w0BAQUFADCBgTELMAkGA1UEBhMCRVMxKDAmBgNVBAoMH0hFQUxUSFNJR04gU0wg4oCTIENJRiBCMTc5NDQ1NTQxMDAuBgNVBAsTJ0FsYmVyZWRhIG51bS4gMy01LiBBdGljLiAxNzAwNCAtIEdJUk9OQTEWMBQGA1UEAxMNQUMgSEVBTFRIU0lHTjAeFw0wNzA0MjYwNzE0MjhaFw0zOTA0MjYwNzE2MTNaMIGBMQswCQYDVQQGEwJFUzEoMCYGA1UECgwfSEVBTFRIU0lHTiBTTCDigJMgQ0lGIEIxNzk0NDU1NDEwMC4GA1UECxMnQWxiZXJlZGEgbnVtLiAzLTUuIEF0aWMuIDE3MDA0IC0gR0lST05BMRYwFAYDVQQDEw1BQyBIRUFMVEhTSUdOMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApQdd+CYQr27IDgPC/7Qq11joDwg+RDaSN3ZFKG7APf44Sdnp3Srw8tfFbMADlWQiJ8B1MyKOARdm70mUbOZhjxk8unzfzxAMavL0QzB7EnP3lKwrlTgEOtQ+QduII510KfNQXUiF1m+nWMqYMcNWILru1kSBAZ9NAcUim4z2J0OMKnQY+eROMO5z/pg8vjvTrjGK5sRxoNCRQKMlllIiS462+mNkaguAixgWuZlRxvZMTdInq4pw0qsAQ1p8RVNJjDf76ty60Q2FPmwUCK5Ik1SWlSdvfcSSDacgtCwaIOwxBaPtIdG4Cpz8MSrEWzDbL/HPjZHwYJ1HqrPX6CKM+QIDAQABo4IBEzCCAQ8wCwYDVR0PBAQDAgGGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFAtuk2JdyGpgwCgfurOve+HTcrF5MGkGA1UdHwRiMGAwXqBcoFqGK2h0dHA6Ly9oc3JjYS9DZXJ0RW5yb2xsL0FDJTIwSEVBTFRIU0lHTi5jcmyGK2ZpbGU6Ly9cXGhzcmNhXENlcnRFbnJvbGxcQUMgSEVBTFRIU0lHTi5jcmwwEAYJKwYBBAGCNxUBBAMCAQAwUwYDVR0gBEwwSjBABgorBgEEAYHeeQEBMDIwMAYIKwYBBQUHAgEWJGh0dHA6Ly93d3cuaGVhbHRoc2lnbi5vcmcvcmVwb3NpdG9yeTAGBgRVHSAAMA0GCSqGSIb3DQEBBQUAA4IBAQByXP+0hy6fo4agfZMZDTaOs7V2TrJnay+QoTvTqc6ulbqtxVmJjminOChvv/R2r4qYIBglgo+9QvWWX8i+AmQOf2zrOd1I4f+i88I6+FkjUbNlUjcHmrzNi+JATNwmyeYpWl/Nfz05n6KLj3VkBS+/pWeimq1YzCzWVabLepMDGToLRR0lSVkwS0hB+SupYQxHFTxqvzLoZ6zaXH+JBZvSBQQVPhj0+/7c9BKHWjMj/BH3wQCy6ejJdE0bknmZXorrKJEfrdvwGjJ9WP4kmfgK/WAWypXBPXLR2zON2PO2ioNwfHhiuJzb2VN+IoRYJ2vpHwxGrcrP8quglIPtRL5v</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.28537.1.1.1</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<CertificateTrustPoint>
+								<!-- OCSP Responder FNMT Clase 2 CA -->
+								<TrustPoint>
+									<ds:X509Certificate>MIIDtDCCAx2gAwIBAgIEPLbekDANBgkqhkiG9w0BAQUFADA2MQswCQYDVQQGEwJF
+UzENMAsGA1UEChMERk5NVDEYMBYGA1UECxMPRk5NVCBDbGFzZSAyIENBMB4XDTEw
+MDExMTEzMTcyOVoXDTEzMDExMTEzMTcyOVowgZQxCzAJBgNVBAYTAkVTMQ0wCwYD
+VQQKEwRGTk1UMRgwFgYDVQQLEw9GTk1UIENsYXNlIDIgQ0ExETAPBgNVBAsTCElu
+dGVybm9zMUkwRwYDVQQDE0BTZXJ2aWRvciBkZSBPQ1NQIC0gRmFicmljYSBOYWNp
+b25hbCBkZSBNb25lZGEgeSBUaW1icmUgUTI4MjYwMDRKMIGfMA0GCSqGSIb3DQEB
+AQUAA4GNADCBiQKBgQDuishmsmUd3bg8obovD8QSfoPZjeXXfrN4WlSvHE19WZau
+rs1lzgDfo9ZVvcAR0qOZdWJZcZOZM6AZA/a3Z4tu55pQqpmFIeaBTM0CNqDPbLNQ
+b1BNgW5/XkryWGCnYcClqXHiMKs2aijCOikj0eOhulvq/e+GIMN8C5Qukr9jpQID
+AQABo4IBbjCCAWowbgYDVR0RBGcwZaRjMGExGDAWBgkrBgEEAaxmAQ8TCVEyODI2
+MDA0SjFFMEMGCSsGAQQBrGYBCBM2U2Vydmlkb3IgZGUgT0NTUCAtIEZhYnJpY2Eg
+TmFjaW9uYWwgZGUgTW9uZWRhIHkgVGltYnJlMAkGA1UdEwQCMAAwKwYDVR0QBCQw
+IoAPMjAxMDAxMTExMzIyMzZagQ8yMDEzMDExMTEzMjIzNlowCwYDVR0PBAQDAgeA
+MBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMJMB0GA1UdDgQWBBSRoLS6/4kSRNCGC4+A
+UeLI4W3BoTAfBgNVHSMEGDAWgBRAmnZEl3QHxKwUyx6NTzpFfDDXYTBbBgNVHR8E
+VDBSMFCgTqBMpEowSDELMAkGA1UEBhMCRVMxDTALBgNVBAoTBEZOTVQxGDAWBgNV
+BAsTD0ZOTVQgQ2xhc2UgMiBDQTEQMA4GA1UEAxMHQ1JMNjU5OTANBgkqhkiG9w0B
+AQUFAAOBgQBh77lzioCGdDJbbzvEspV+x7OuhLKxZ3s2MtFawvTdYwrSEeJ5IOAP
+FdPOyevLcUy8WjM0BTLeFv81L+m7mF50gOZZHzy5QqE1MQKIf0+pSbHjbHatE2ST
+fctpZV7CoQWjK8r1RnK/PkUHXau5XNpw5tCWwBRdsAJXj483ZxU+7g==</ds:X509Certificate>
+								</TrustPoint>
+							</CertificateTrustPoint>
+						</SignerTrustTrees>
+						<SignerRevReq>
+							<EndRevReq>
+								<EnuRevReq>eithercheck</EnuRevReq>
+							</EndRevReq>
+							<CACerts>
+								<EnuRevReq>eithercheck</EnuRevReq>
+							</CACerts>
+						</SignerRevReq>
+					</SigningCertTrustCondition>
+					<RoleTrustCondition>
+						<RoleMandated>false</RoleMandated>
+						<HowCertRole>ClaimedRole</HowCertRole>
+						<RoleConstraints>
+							<RoleValueConstraint>supplier</RoleValueConstraint>
+							<RoleValueConstraint>Supplier</RoleValueConstraint>
+							<RoleValueConstraint>emisor</RoleValueConstraint>
+							<RoleValueConstraint>Emisor</RoleValueConstraint>
+							<RoleValueConstraint>customer</RoleValueConstraint>
+							<RoleValueConstraint>Customer</RoleValueConstraint>
+							<RoleValueConstraint>receptor</RoleValueConstraint>
+							<RoleValueConstraint>Receptor</RoleValueConstraint>
+							<RoleValueConstraint>third party</RoleValueConstraint>
+							<RoleValueConstraint>Third party</RoleValueConstraint>
+							<RoleValueConstraint>tercero</RoleValueConstraint>
+							<RoleValueConstraint>Tercero</RoleValueConstraint>
+						</RoleConstraints>
+					</RoleTrustCondition>
+				</CommitmentRule>
+			</CommitmentRules>
+		</SignatureValidationPolicy>
+	</SignPolicyInfo>
+	<SignPolicyDigest>bWdtp5k7Mh0lHqcOaXaMhxOQMeY=</SignPolicyDigest>
+</SignaturePolicy>

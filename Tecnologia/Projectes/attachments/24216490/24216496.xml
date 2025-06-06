@@ -1,0 +1,199 @@
+<SignaturePolicy xmlns="http://uri.etsi.org/2038/v1.1.1#" xmlns:XAdES="http://uri.etsi.org/01903/v1.2.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uri.etsi.org/2038/v1.1.1# signaturePolicy_etsi_tr_102_038.xsd">
+	<SignPolicyDigestAlg Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></SignPolicyDigestAlg>
+	<ds:Transforms>
+		<!-- Canonicalization algorithm ommiting comments -->
+		<ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:Transform>
+	</ds:Transforms>
+	<SignPolicyInfo>
+		<SignPolicyIdentifier>
+			<!-- URN: urn:catcert:normatives:signatura:actuacio_administrativa:generica:CAdES-T -->
+			<!-- OID: 1.3.6.1.4.1.15096.2.3.28.1.2 -->
+			<XAdES:Identifier>urn:oid:1.3.6.1.4.1.15096.2.3.28.1.2</XAdES:Identifier>
+			<XAdES:Description>Aquest document conté la normativa de signatura electrònica genèrica amb segell de temps obligatori, CAdES-T detached, aplicable a la signatura de documents electrònics en el context d'un procediment administratiu (Política de prova).</XAdES:Description>
+			<XAdES:DocumentationReferences>
+				<XAdES:DocumentationReference>http://www.catcert.cat/normatives/PdSE_CATCert_Actuacio_administrativa_Generica_CAdES_T_v1.0.xml</XAdES:DocumentationReference>
+				<XAdES:DocumentationReference>http://www.catcert.cat/normatives/PdSE_CATCert_Actuacio_administrativa_Generica_CAdES_T_v1.0.pdf</XAdES:DocumentationReference>
+			</XAdES:DocumentationReferences>
+		</SignPolicyIdentifier>
+		<DateOfIssue>2010-10-06T00:00:00.0Z</DateOfIssue>
+		<PolicyIssuerName>Agencia Catalana de Certificacio (NIF Q-0801176-I)</PolicyIssuerName>
+		<FieldOfApplication>Aquesta normativa de signatura electrònica resulta aplicable a totes les signatures electròniques, CAdES detached, realitzades en el context d'un procediment administratiu genèric on els signataris podran ser membres de l'Administració (Política de prova).
+</FieldOfApplication>
+		<SignatureValidationPolicy>
+			<SigningPeriod>
+				<NotBefore>2010-10-06T00:00:00.0Z</NotBefore>
+			</SigningPeriod>
+			<CommonRules>
+				<SignerAndVerifierRules>
+					<SignerRules>
+						<!-- CAdES-T -->
+						<MandatedSignedQProperties>
+							<!-- ContentType -->
+							<QPropertyID>urn:oid:1.2.840.113549.1.9.3</QPropertyID>
+							<!-- MessageDigest  -->
+							<QPropertyID>urn:oid:1.2.840.113549.1.9.4</QPropertyID>
+							<!-- id-signingTime -->
+							<QPropertyID>urn:oid:1.2.840.113549.1.9.5</QPropertyID>
+							<!-- CAdES Signing Certificate -->
+							<QPropertyID>urn:oid:1.2.840.113549.1.9.16.2.12</QPropertyID>
+						</MandatedSignedQProperties>
+						<MandatedUnsignedQProperties>
+							<!-- CAdES Signature Timestamp -->
+							<QPropertyID>urn:oid:1.2.840.113549.1.9.16.2.14</QPropertyID>
+						</MandatedUnsignedQProperties>
+						<MandatedCertificateRef>signerOnly</MandatedCertificateRef>
+						<MandatedCertificateInfo>signerOnly</MandatedCertificateInfo>
+					</SignerRules>
+					<VerifierRules>
+						<!-- CAdES-C -->
+						<MandatedQUnsignedProperties>
+							<!-- CAdES Complete Certificate Refs -->
+							<QPropertyID>urn:oid:1.2.840.113549.1.9.16.2.21</QPropertyID>
+							<!-- CAdES Complete Revocation Refs -->
+							<QPropertyID>urn:oid:1.2.840.113549.1.9.16.2.22</QPropertyID>
+						</MandatedQUnsignedProperties>
+					</VerifierRules>
+				</SignerAndVerifierRules>
+				<TimeStampTrustCondition>
+					<TtsCertificateTrustTrees>
+						<CertificateTrustPoint>
+							<TrustPoint>
+								<!-- EC-ACC -->
+								<ds:X509Certificate>MIIFVjCCBD6gAwIBAgIQ7is969Qh3hSoYqwE893EATANBgkqhkiG9w0BAQUFADCB8zELMAkGA1UEBhMCRVMxOzA5BgNVBAoTMkFnZW5jaWEgQ2F0YWxhbmEgZGUgQ2VydGlmaWNhY2lvIChOSUYgUS0wODAxMTc2LUkpMSgwJgYDVQQLEx9TZXJ2ZWlzIFB1YmxpY3MgZGUgQ2VydGlmaWNhY2lvMTUwMwYDVQQLEyxWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAoYykwMzE1MDMGA1UECxMsSmVyYXJxdWlhIEVudGl0YXRzIGRlIENlcnRpZmljYWNpbyBDYXRhbGFuZXMxDzANBgNVBAMTBkVDLUFDQzAeFw0wMzAxMDcyMzAwMDBaFw0zMTAxMDcyMjU5NTlaMIHzMQswCQYDVQQGEwJFUzE7MDkGA1UEChMyQWdlbmNpYSBDYXRhbGFuYSBkZSBDZXJ0aWZpY2FjaW8gKE5JRiBRLTA4MDExNzYtSSkxKDAmBgNVBAsTH1NlcnZlaXMgUHVibGljcyBkZSBDZXJ0aWZpY2FjaW8xNTAzBgNVBAsTLFZlZ2V1IGh0dHBzOi8vd3d3LmNhdGNlcnQubmV0L3ZlcmFycmVsIChjKTAzMTUwMwYDVQQLEyxKZXJhcnF1aWEgRW50aXRhdHMgZGUgQ2VydGlmaWNhY2lvIENhdGFsYW5lczEPMA0GA1UEAxMGRUMtQUNDMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsyLHT+KXQpWIR4NA9h0X84NzJB5R85iKw5K4/0CQBXCHYMkAqbWUZRkiFRfCQ2xmRJoNBD45b6VLeqpjt4pEndljkYRm4CgPukLjbo73FCeTae6RDqNfDrHrZqJyTxIThmV6PttPB/SnCWDaOkKZx7J/sxaVHMf5NLWUhdWZXqBIoH7nF2W4onW4HvPlQn2v7fOKSGRdghST2MDk/7NQcvJ29rNdQlB50JQ+awwAvthrDk4q7D7SzIKiGGUzE3eeml0aE9jD2z3Il3rucO2n5nzbcc8tlGLfbdb1OL4/pYUKGbio2Al1QnDE6u/LDsg0qBIimAy4E5S2S+zw0JDnJwIDAQABo4HjMIHgMB0GA1UdEQQWMBSBEmVjX2FjY0BjYXRjZXJ0Lm5ldDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUoMOLRKo3pUW/l4Ba0fF4opvpXY0wfwYDVR0gBHgwdjB0BgsrBgEEAfV4AQMBCjBlMCwGCCsGAQUFBwIBFiBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbDA1BggrBgEFBQcCAjApGidWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAwDQYJKoZIhvcNAQEFBQADggEBAKBIW4IB9k1IuDlVNZyAelOZ1Vr/sXE7zDkJlF7W2u++AVtd0x7Y/X1PzaBB4DSTv8vihpw3kpBWHNzrKQXlxJ7HNd+KDM3FIUPpqojlNcAZQmNaAl6kSBg6hW/cnbw/nZzBh7h6YQjpdwt/cKt63dmXLGQehb+8dJahw3oS7AwaboMMPOhyRp/7SNVel+axofjk70YllJyJ22k4vuxcDlbHZVHlUIiIv0LVKz3l+bqeLrPK9HOSAgu+TGbrIP65y7WZf+a2E/rKS03Z7lNGBjvGTq2TWoF+bCpLagVFjPIhpDGQh2xlnJ2lYJU6Un/10asIbvPuW/mIPX64b24D5EI=</ds:X509Certificate>
+							</TrustPoint>
+							<AcceptablePolicySet>
+								<AcceptablePolicy>
+									<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.111</XAdES:Identifier>
+									<XAdES:Description>Política de certificats d’infrastructura d’entitat de segell de temps de classe 1 (CIT-1).</XAdES:Description>
+									<XAdES:DocumentationReferences>
+										<XAdES:DocumentationReference>https://www.catcert.cat/verCIT-1</XAdES:DocumentationReference>
+									</XAdES:DocumentationReferences>
+								</AcceptablePolicy>
+							</AcceptablePolicySet>
+						</CertificateTrustPoint>
+					</TtsCertificateTrustTrees>
+					<TtsRevReq>
+						<EndRevReq>
+							<EnuRevReq>eithercheck</EnuRevReq>
+						</EndRevReq>
+						<CACerts>
+							<EnuRevReq>eithercheck</EnuRevReq>
+						</CACerts>
+					</TtsRevReq>
+				</TimeStampTrustCondition>
+				<AlgorithmConstraintSet>
+					<SignerAlgConstraints>
+						<AlgAndLength>
+							<!-- SHA-1 with RSA Encryption -->
+							<AlgId>urn:oid:1.2.840.113549.1.1.5</AlgId>
+							<MinKeyLength>1024</MinKeyLength>
+						</AlgAndLength>
+					</SignerAlgConstraints>
+					<EeCertAlgConstraints>
+						<AlgAndLength>
+							<!-- SHA-1 with RSA Encryption -->
+							<AlgId>urn:oid:1.2.840.113549.1.1.5</AlgId>
+							<MinKeyLength>1024</MinKeyLength>
+						</AlgAndLength>
+					</EeCertAlgConstraints>
+					<CACertAlgConstraints>
+						<AlgAndLength>
+							<!-- SHA-1 with RSA Encryption -->
+							<AlgId>urn:oid:1.2.840.113549.1.1.5</AlgId>
+							<MinKeyLength>2048</MinKeyLength>
+						</AlgAndLength>
+					</CACertAlgConstraints>
+					<TSACertAlgConstraints>
+						<AlgAndLength>
+							<!-- SHA-1 with RSA Encryption -->
+							<AlgId>urn:oid:1.2.840.113549.1.1.5</AlgId>
+							<MinKeyLength>1024</MinKeyLength>
+						</AlgAndLength>
+					</TSACertAlgConstraints>
+				</AlgorithmConstraintSet>
+			</CommonRules>
+			<CommitmentRules>
+				<!-- Actuació genèrica -->
+				<CommitmentRule>
+					<SelCommitmentTypes>
+						<SelCommitmentType>
+							<!-- Indica que en cas de compromís de signatura buit, cal que la signatura compleixi les condicions recollides a aquest CommitmentRule. -->
+							<Empty></Empty>
+						</SelCommitmentType>
+						<SelCommitmentType>
+							<RecognizedCommitmentType>
+								<CommitmentIdentifier>
+									<!-- URN: urn:catcert:compromisos_signatura:actuacio:generica -->
+									<!-- OID: 1.3.6.1.4.1.15096.2.4.1.1 -->
+									<!-- Recull tots els perfils de certificat classificats per CATCert -->
+									<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.2.4.1.1</XAdES:Identifier>
+									<XAdES:Description>Actuació genèrica.</XAdES:Description>
+								</CommitmentIdentifier>
+								<Semantics>Compromís de signatura per a actuació genèrica.</Semantics>
+							</RecognizedCommitmentType>
+						</SelCommitmentType>
+					</SelCommitmentTypes>
+					<SigningCertTrustCondition>
+						<SignerTrustTrees>
+							<!-- CATCert -->
+							<CertificateTrustPoint>
+								<TrustPoint>
+									<!-- EC-ACC -->
+									<X509Certificate>MIIFVjCCBD6gAwIBAgIQ7is969Qh3hSoYqwE893EATANBgkqhkiG9w0BAQUFADCB8zELMAkGA1UEBhMCRVMxOzA5BgNVBAoTMkFnZW5jaWEgQ2F0YWxhbmEgZGUgQ2VydGlmaWNhY2lvIChOSUYgUS0wODAxMTc2LUkpMSgwJgYDVQQLEx9TZXJ2ZWlzIFB1YmxpY3MgZGUgQ2VydGlmaWNhY2lvMTUwMwYDVQQLEyxWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAoYykwMzE1MDMGA1UECxMsSmVyYXJxdWlhIEVudGl0YXRzIGRlIENlcnRpZmljYWNpbyBDYXRhbGFuZXMxDzANBgNVBAMTBkVDLUFDQzAeFw0wMzAxMDcyMzAwMDBaFw0zMTAxMDcyMjU5NTlaMIHzMQswCQYDVQQGEwJFUzE7MDkGA1UEChMyQWdlbmNpYSBDYXRhbGFuYSBkZSBDZXJ0aWZpY2FjaW8gKE5JRiBRLTA4MDExNzYtSSkxKDAmBgNVBAsTH1NlcnZlaXMgUHVibGljcyBkZSBDZXJ0aWZpY2FjaW8xNTAzBgNVBAsTLFZlZ2V1IGh0dHBzOi8vd3d3LmNhdGNlcnQubmV0L3ZlcmFycmVsIChjKTAzMTUwMwYDVQQLEyxKZXJhcnF1aWEgRW50aXRhdHMgZGUgQ2VydGlmaWNhY2lvIENhdGFsYW5lczEPMA0GA1UEAxMGRUMtQUNDMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsyLHT+KXQpWIR4NA9h0X84NzJB5R85iKw5K4/0CQBXCHYMkAqbWUZRkiFRfCQ2xmRJoNBD45b6VLeqpjt4pEndljkYRm4CgPukLjbo73FCeTae6RDqNfDrHrZqJyTxIThmV6PttPB/SnCWDaOkKZx7J/sxaVHMf5NLWUhdWZXqBIoH7nF2W4onW4HvPlQn2v7fOKSGRdghST2MDk/7NQcvJ29rNdQlB50JQ+awwAvthrDk4q7D7SzIKiGGUzE3eeml0aE9jD2z3Il3rucO2n5nzbcc8tlGLfbdb1OL4/pYUKGbio2Al1QnDE6u/LDsg0qBIimAy4E5S2S+zw0JDnJwIDAQABo4HjMIHgMB0GA1UdEQQWMBSBEmVjX2FjY0BjYXRjZXJ0Lm5ldDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUoMOLRKo3pUW/l4Ba0fF4opvpXY0wfwYDVR0gBHgwdjB0BgsrBgEEAfV4AQMBCjBlMCwGCCsGAQUFBwIBFiBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbDA1BggrBgEFBQcCAjApGidWZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAwDQYJKoZIhvcNAQEFBQADggEBAKBIW4IB9k1IuDlVNZyAelOZ1Vr/sXE7zDkJlF7W2u++AVtd0x7Y/X1PzaBB4DSTv8vihpw3kpBWHNzrKQXlxJ7HNd+KDM3FIUPpqojlNcAZQmNaAl6kSBg6hW/cnbw/nZzBh7h6YQjpdwt/cKt63dmXLGQehb+8dJahw3oS7AwaboMMPOhyRp/7SNVel+axofjk70YllJyJ22k4vuxcDlbHZVHlUIiIv0LVKz3l+bqeLrPK9HOSAgu+TGbrIP65y7WZf+a2E/rKS03Z7lNGBjvGTq2TWoF+bCpLagVFjPIhpDGQh2xlnJ2lYJU6Un/10asIbvPuW/mIPX64b24D5EI=</X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<!-- CPISR-1 -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81</XAdES:Identifier>
+										<XAdES:Description>Política de Certificat Personal d'Identificació i Signatura Reconeguda de Classe 1 (CPISR-1)</XAdES:Description>
+										<XAdES:DocumentationReferences>
+											<XAdES:DocumentationReference>https://www.catcert.cat/verCPISR-1</XAdES:DocumentationReference>
+										</XAdES:DocumentationReferences>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.2.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-2 Càrrec (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.82.3.4</XAdES:Identifier>
+									</AcceptablePolicy>
+									<!-- CPISR-1 Càrrec i Ús (EC-SAFP) -->
+									<AcceptablePolicy>
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:1.3.6.1.4.1.15096.1.3.1.81.3.1</XAdES:Identifier>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+							<!-- DNIe -->
+							<CertificateTrustPoint>
+								<TrustPoint>
+									<!-- AC DNIE -->
+									<ds:X509Certificate>MIIFvzCCA6egAwIBAgIQANKFcP2up9ZfEYQVxjG1yzANBgkqhkiG9w0BAQUFADBdMQswCQYDVQQGEwJFUzEoMCYGA1UECgwfRElSRUNDSU9OIEdFTkVSQUwgREUgTEEgUE9MSUNJQTENMAsGA1UECwwERE5JRTEVMBMGA1UEAwwMQUMgUkFJWiBETklFMB4XDTA2MDIxNjEwMzcyNVoXDTM2MDIwODIyNTk1OVowXTELMAkGA1UEBhMCRVMxKDAmBgNVBAoMH0RJUkVDQ0lPTiBHRU5FUkFMIERFIExBIFBPTElDSUExDTALBgNVBAsMBEROSUUxFTATBgNVBAMMDEFDIFJBSVogRE5JRTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAIAArQzDoyAHo2P/9zSgze5qVAgXXbEBFafmuV+Kcf8Mwh3qN/Pek3/WBU2EstXXHAz0xJFwQA5ayJikgOgNM8AH87f1rKE4esBmVCT8UswwKvLDxKEsdr/BwL+C8ZvwaHoTQMiXvBwlBwgKt5bvzClU4OZlLeqyLrEJaRJOMNXY+LwAgC9Nkw/NLlcbM7ufME7Epct5p/viNBi2IJ4bn12nyTqtRWSzGM4REpxtHlVFKIScV2dN+cvii49YCdQ5/8g20jjiDGV/FQ59wQfdqSLfkQDEbHE0dNw56upPRGl/WNtYClJxK+ypHVB0M/kpavr+mfTnzEVFbcpaJaIS487XOAU58BoJ9XZZzmJvejQNLNG8BBLsPVPI+tACy849IbXF4DkzZc85U8mbRvmdM/NZgAhBvm9LoPpKzqR2HIXir68UnWWs93+X5DNJpq++zis38S7BcwWcnGBMnTANl1SegWK75+Av9xQHFKl3kenckZWO04iQM0dvccMUafqmLQEeG+rTLuJ/C9zP5yLw8UGjAZLlgNO+qWKoVYgLNDTs3CEVqu/WIl6J9VGSEypvgBbZsQ3ZLvgQuML+UkUznB04fNwVaTRzv6AsuxF7lM34Ny1vPe+DWsYem3RJj9nCjb4WdlDIWtElFvb2zIycWjCeZb7QmkiT1/poDXUxh/n3AgMBAAGjezB5MA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBSORfSfc8X/LxsF2wFHYBsDioG3ujA3BgNVHSAEMDAuMCwGBFUdIAAwJDAiBggrBgEFBQcCARYWaHR0cDovL3d3dy5kbmllLmVzL2RwYzANBgkqhkiG9w0BAQUFAAOCAgEAdeVzyVFRL4sZoIfp/642Nqb8QR/jHtdxYBnGb5oCML1ica1z/pEtTuQmQESprngmIzFp3Jpzlh5JUQvg78G4Q+9xnO5Bt8VQHzKEniKG8fcfj9mtK07alyiXu5aaGvix2XoE81SZEhmWFYBnOf8CX3r8VUJQWua5ov+4qGIeFM3ZP76jZUjFO9c3zg36KJDav/njUUclfUrTZ02HqmK8Xux6gER8958KvWVXlMryEWbWUn/kOnB1BM07l9Q2cvdRVr809dJB4bTaqEP+axJJErRdzyJClowIIyaMshBOXapT7gEvdeW5ohEzxNdq/fgOym6C2ee7WSNOtfkRHS9rI/V7ESDqQRKQMkbbMTupwVtzaDpGG4z+l7dWuWGZzE7wg/o38d4cnRxxiwOTw8Rzgi6omB1kopqM91QITc/qgcv1WwmZY691jJb4eTXV3OtBgXk4hF5v8W9idtuRzlqFYDkdW+IqL0Ml28J6JNMVsKLxjKB9a0gJE/+iTGaK7HBSCVOMMMy41bok3DCZPqFet9+BrOw3vk6bJ1jefqGbVH8Gti/kMlD95xC7qM3aGBvUY2Y96lFxOfScPt9a9NrHTCbti7UhujR5AnNhENqYMahgy34Hp9C3BUOJW82FJtmwUa/3jFKqEqdY35KbZ/Kd8ub0aTH0Fufed1se3ZoFAa0=</ds:X509Certificate>
+								</TrustPoint>
+								<AcceptablePolicySet>
+									<AcceptablePolicy>
+										<!-- DNIe Firma -->
+										<XAdES:Identifier Qualifier="OIDAsURN">urn:oid:2.16.724.1.2.2.2.3</XAdES:Identifier>
+										<XAdES:Description>Política de Certificados Reconocidos de Firma Electrónica</XAdES:Description>
+										<XAdES:DocumentationReferences>
+											<XAdES:DocumentationReference>http://www.dnielectronico.es/PDFs/politicas_de_certificacion.pdf</XAdES:DocumentationReference>
+										</XAdES:DocumentationReferences>
+									</AcceptablePolicy>
+								</AcceptablePolicySet>
+							</CertificateTrustPoint>
+						</SignerTrustTrees>
+						<SignerRevReq>
+							<EndRevReq>
+								<EnuRevReq>eithercheck</EnuRevReq>
+							</EndRevReq>
+							<CACerts>
+								<EnuRevReq>eithercheck</EnuRevReq>
+							</CACerts>
+						</SignerRevReq>
+					</SigningCertTrustCondition>
+				</CommitmentRule>
+			</CommitmentRules>
+		</SignatureValidationPolicy>
+	</SignPolicyInfo>
+	<SignPolicyDigest>EVYD1U438lcW4PcXxgwRnOsiou4=</SignPolicyDigest>
+</SignaturePolicy>

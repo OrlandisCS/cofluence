@@ -1,0 +1,51 @@
+﻿<MultiSignPolicy xmlns="http://www.catcert.cat/MultiSignPolicy/v1.1#" xmlns:XAdES="http://uri.etsi.org/01903/v1.2.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.catcert.cat/MultiSignPolicy/v1.1# MultipleSignaturePolicy_v1.1.xsd">
+	<MultiSignPolDigestAlg Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></MultiSignPolDigestAlg>
+	<ds:Transforms>
+		<!-- Canonicalization algorithm ommiting comments -->
+		<ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:Transform>
+	</ds:Transforms>
+	<MultiSignPolicyInfo>
+		<MultiSignPolIdentifier>
+			<!-- PdSM identifier -->
+			<XAdES:Identifier>urn:catcert:normatives:signatura_multiple:SEM:Contractacio:Facturae</XAdES:Identifier>
+			<XAdES:Description>Política de Signatura Múltiple per a la signatura de factures electròniques dins del SEM (). El document a signar es presenta en format XML seguint les especificacions de facturae emeses per l'AEAT. La signatura adopta la forma XAdES-T en el moment de la creació i XAdES-XL un cop validada, i està  embolcallada pel document signat.</XAdES:Description>
+		</MultiSignPolIdentifier>
+		<DateOfIssue>2011-10-19T09:30:00.0Z</DateOfIssue>
+		<MultiSignPolIssuerName>Agencia Catalana de Certificacio (NIF Q-0801176-I)</MultiSignPolIssuerName>
+		<DocumentFormatType>
+			<DocumentMIMEType>text/xml</DocumentMIMEType>
+		</DocumentFormatType>
+		<SignatureEventsList>
+			<SignatureEvent EventIdentifier="ID_1">
+				<EventDescription>Signatura enveloped en format XAdES</EventDescription>
+				<BlockingSignatureEvent>true</BlockingSignatureEvent>
+				<SignatureProperties>
+					<!-- Signature Policy -->
+					<SignaturePolicy>
+						<!-- urn:catcert:normatives:signatura:acte_administratiu:generic:XAdES-T -->
+						<!-- http://www.facturae.es/politica_de_firma_formato_facturae/politica_de_firma_formato_facturae_v3_1.pdf -->
+						<XAdES:Identifier>http://www.facturae.es/politica_de_firma_formato_facturae/politica_de_firma_formato_facturae_v3_1.pdf</XAdES:Identifier>
+						<XAdES:Description>Normativa de signatura electrònica, en la seva versió 3.1, per a la factura electrònica segons les especificacions de l'AEAT.</XAdES:Description>
+					</SignaturePolicy>
+					<SignatureAlgorithm>
+						<XAdES:Identifier Qualifier="OIDAsURN">http://www.w3.org/2000/09/xmldsig#rsa-sha1</XAdES:Identifier>
+						<XAdES:Description>sha1WithRSAEncryption</XAdES:Description>
+					</SignatureAlgorithm>
+					<SignatureReferencesList>
+						<StaticSignatureReferences>
+							<EnvelopedReference>
+								<DocReferencePointer>
+									<ds:Transforms>
+										<!-- Canonicalization algorithm ommiting comments -->
+										<ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:Transform>
+									</ds:Transforms>
+								</DocReferencePointer>
+							</EnvelopedReference>
+						</StaticSignatureReferences>
+					</SignatureReferencesList>
+				</SignatureProperties>
+			</SignatureEvent>
+		</SignatureEventsList>
+	</MultiSignPolicyInfo>
+	<MultiSignPolicyDigest>pyB15667ujxpgC2Y/YmY9m5k5Lo=</MultiSignPolicyDigest>
+</MultiSignPolicy>

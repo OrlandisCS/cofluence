@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" 
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:saml20="urn:oasis:names:tc:SAML:2.0:assertion" 
+	xmlns:XSS="urn:oasis:names:tc:dss:1.0:profiles:XSS"
+	xmlns:dsspdf="urn:oasis:names:tc:dss:1.0:profiles:DSS_PDF" 
+	targetNamespace="urn:oasis:names:tc:dss:1.0:profiles:DSS_PDF" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="saml-schema-assertion-2.0.xsd" />
+	<xs:import namespace="urn:oasis:names:tc:dss:1.0:profiles:XSS" schemaLocation="oasis-dss-1.0-profiles-XSS-schema-wd04.xsd" />	
+
+	<xs:element name="SignatureReason" type="xs:string" />
+	<xs:element name="ReturnSignatureReason" />
+
+	<xs:element name="PDFTotalRevisionsNumber" type="xs:integer" />
+	<xs:element name="ReturnPDFTotalRevisionsNumber" />
+	
+	<xs:element name="ReturnPDFExpirationDate"/>
+	<xs:element name="PDFExpirationDate" type="xs:dateTime"/>
+	
+	<xs:element name="ReturnPDFExpirationDateBeforeUpdate"/>
+	<xs:element name="PDFExpirationDateBeforeUpdate" type="xs:dateTime"/>
+
+	<xs:element name="ReturnPDFSignaturesDetails">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="XSS:ReturnSignatureInfo" minOccurs="0"/>
+				<xs:element ref="XSS:ReturnX509CertificateInfo" minOccurs="0"/>
+				<xs:element ref="dsspdf:ReturnPDFSignatureInfo" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PDFSignaturesDetails">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dsspdf:PDFSignatureDetails" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PDFSignatureDetails">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="XSS:SignatureInfo" 	  minOccurs="0" />
+				<xs:element ref="XSS:X509CertificateInfo" minOccurs="0"	/>
+				<xs:element ref="dsspdf:PDFSignatureInfo" minOccurs="0"	/>
+			</xs:sequence>
+			<xs:attribute name="PDFRevisionNumber" 		type="xs:integer" />
+			<xs:attribute name="PDFSignatureFieldName"	type="xs:string"  />
+			<xs:attribute name="SignatureType"			type="xs:anyURI"  />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="ReturnPDFSignatureInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AttributeDesignator" type="saml20:AttributeType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PDFSignatureInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Attribute" type="saml20:AttributeType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
