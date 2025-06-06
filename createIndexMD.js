@@ -39,24 +39,17 @@ async function main() {
     const items = fs.readdirSync(inputDir, { withFileTypes: true });
     let readmeContent = "# Índice de contenido\n\n";
 
-    for (const seccion of items) {
-      if (seccion.isDirectory()) {
-        const subdir = path.join(inputDir, seccion.name);
-        const archivos = fs
-          .readdirSync(subdir)
-          .filter((f) => f.endsWith(".md"));
-
-        if (archivos.length > 0) {
-          readmeContent += `## ${seccion.name}\n`;
-          for (const archivo of archivos) {
-            readmeContent += `- [${archivo}](./${seccion.name}/${archivo})\n`;
-          }
-          readmeContent += "\n";
-        }
+    items.map((item, index) => {
+      if (item.isDirectory()) {
+        const inputPath = path.join(inputDir, item.name);
+        readmeContent += `${index}: [${item.name}](./${inputPath})\n`;
+        readmeContent += "\n";
       }
-    }
+    });
+    await sleep(500);
     const outputPath = path.join("./", "README.md");
     fs.writeFileSync(outputPath, readmeContent, "utf8");
+
     spinner.succeed(chalk.green("📘 README.md generado correctamente"));
   } catch (error) {
     console.log(error);
