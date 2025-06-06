@@ -43,7 +43,7 @@ async function main() {
       if (item.isDirectory()) {
         const inputPath = path.join(inputDir, item.name);
         const url = encodeURI(inputPath);
-        readmeContent += `${index}: [${item.name}](./${url})\n`;
+        readmeContent += `${index + 1}: [${item.name}](./${url}/index.md)\n`;
         readmeContent += "\n";
       }
     });
